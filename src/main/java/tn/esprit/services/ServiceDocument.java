@@ -17,9 +17,9 @@ public class ServiceDocument implements IService<Document> {
 
     @Override
     public void add(Document document) {
-        String qry = "INSERT INTO `document`(`titre`, `description`, `type_document`, `date_creation`, `date_modification`, `status`) VALUES (?,?,?,?,?,?)";
+        String qry = "INSERT INTO `document`(`Titre`, `Description`, `Type_Document`, `Date_Creation`, `Date_Modification`, `Status`) VALUES (?,?,?,?,?,?)";
         try {
-            PreparedStatement pstm = cnx.prepareStatement(qry);
+            PreparedStatement pstm = cnx.prepareStatement(qry, Statement.RETURN_GENERATED_KEYS);
             pstm.setString(1, document.getTitre());
             pstm.setString(2, document.getDescription());
             pstm.setString(3, document.getType_document());
@@ -28,6 +28,12 @@ public class ServiceDocument implements IService<Document> {
             pstm.setString(6, document.getStatus());
 
             pstm.executeUpdate();
+
+            // Récupérer l'ID généré
+            ResultSet rs = pstm.getGeneratedKeys();
+            if (rs.next()) {
+                document.setId(rs.getInt(1)); // Mettre à jour l'ID du document
+            }
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
@@ -44,13 +50,13 @@ public class ServiceDocument implements IService<Document> {
 
             while (rs.next()) {
                 Document d = new Document();
-                d.setId(rs.getInt("id_document"));
-                d.setTitre(rs.getString("titre"));
-                d.setDescription(rs.getString("description"));
-                d.setType_document(rs.getString("type_document"));
-                d.setDate_creation(rs.getDate("date_creation"));
-                d.setDate_modification(rs.getDate("date_modification"));
-                d.setStatus(rs.getString("status"));
+                d.setId(rs.getInt("id_Document"));
+                d.setTitre(rs.getString("Titre"));
+                d.setDescription(rs.getString("Description"));
+                d.setType_document(rs.getString("Type_Document"));
+                d.setDate_creation(rs.getDate("Date_Creation"));
+                d.setDate_modification(rs.getDate("Date_Modification"));
+                d.setStatus(rs.getString("Status"));
 
                 documents.add(d);
             }
@@ -63,7 +69,7 @@ public class ServiceDocument implements IService<Document> {
 
     @Override
     public void update(Document document) {
-        String qry = "UPDATE `document` SET `titre`=?, `description`=?, `type_document`=?, `date_creation`=?, `date_modification`=?, `status`=? WHERE `id_document`=?";
+        String qry = "UPDATE `document` SET `Titre`=?, `Description`=?, `Type_Document`=?, `Date_Creation`=?, `Date_Modification`=?, `Status`=? WHERE `id_Document`=?";
         try {
             PreparedStatement pstm = cnx.prepareStatement(qry);
             pstm.setString(1, document.getTitre());
@@ -82,7 +88,7 @@ public class ServiceDocument implements IService<Document> {
 
     @Override
     public void delete(Document document) {
-        String qry = "DELETE FROM `document` WHERE `id_document`=?";
+        String qry = "DELETE FROM `document` WHERE `id_Document`=?";
         try {
             PreparedStatement pstm = cnx.prepareStatement(qry);
             pstm.setInt(1, document.getId());
