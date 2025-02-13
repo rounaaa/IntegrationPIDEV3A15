@@ -1,19 +1,19 @@
 package tn.esprit.models;
 
 public class Utilisateur {
-
-    private int id;
+    private int id_user; // Changement de id -> id_user
     private String nom;
     private String prenom;
     private String email;
     private String motDePasse;
-    private String role;
+    private Role role;
 
-    public Utilisateur() {
-    }
+    public enum Role { ADMIN, CITOYEN }
 
-    public Utilisateur(int id, String nom, String prenom, String email, String motDePasse, String role) {
-        this.id = id;
+    public Utilisateur() {}
+
+    public Utilisateur(int id_user, String nom, String prenom, String email, String motDePasse, Role role) {
+        this.id_user = id_user;
         this.nom = nom;
         this.prenom = prenom;
         this.email = email;
@@ -21,7 +21,7 @@ public class Utilisateur {
         this.role = role;
     }
 
-    public Utilisateur(String nom, String prenom, String email, String motDePasse, String role) {
+    public Utilisateur(String nom, String prenom, String email, String motDePasse, Role role) {
         this.nom = nom;
         this.prenom = prenom;
         this.email = email;
@@ -29,12 +29,12 @@ public class Utilisateur {
         this.role = role;
     }
 
-    public int getId() {
-        return id;
+    public int getId_user() {
+        return id_user;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setId_user(int id_user) {
+        this.id_user = id_user;
     }
 
     public String getNom() {
@@ -69,24 +69,23 @@ public class Utilisateur {
         this.motDePasse = motDePasse;
     }
 
-    public String getRole() {
+    public Role getRole() {
         return role;
     }
 
-    public void setRole(String role) {
+    public void setRole(Role role) {
         this.role = role;
     }
 
     @Override
     public String toString() {
         return "Utilisateur{" +
-                "id=" + id +
-
+                "id_user=" + id_user +
                 ", nom='" + nom + '\'' +
                 ", prenom='" + prenom + '\'' +
                 ", email='" + email + '\'' +
                 ", motDePasse='" + motDePasse + '\'' +
-                ", role='" + role + '\'' +
+                ", role=" + role +
                 "}\n";
     }
 }
