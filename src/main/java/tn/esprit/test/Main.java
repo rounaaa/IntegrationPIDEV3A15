@@ -7,10 +7,10 @@ public class Main {
     public static void main(String[] args) {
         ServiceUtilisateur service = new ServiceUtilisateur();
 
-        Utilisateur admin = new Utilisateur("Admin", "System", "admin@example.com", "password", Utilisateur.Role.ADMIN);
+        Utilisateur admin = new Utilisateur("Admin", "System", "admin@example.com", 12345678, "password", Utilisateur.Role.ADMIN);
         service.add(admin);
 
-        Utilisateur citoyen = new Utilisateur("Jean", "Dupont", "jean@example.com", "password", Utilisateur.Role.CITOYEN);
+        Utilisateur citoyen = new Utilisateur("Jean", "Dupont", "jean@example.com", 87654321, "password", Utilisateur.Role.CITOYEN);
         service.add(citoyen);
 
         System.out.println("Liste des utilisateurs après ajout :");
@@ -18,7 +18,7 @@ public class Main {
             System.out.println(u);
         }
 
-        service.update(admin.getId_user(), "Admin", "System", "admin@example.com", "newpassword", Utilisateur.Role.ADMIN);
+        service.update(admin.getId_user(), "Admin", "System", "admin@example.com", 12345678, "newpassword", Utilisateur.Role.ADMIN);
 
         System.out.println("\nListe après modification :");
         for (Utilisateur u : service.getAll()) {

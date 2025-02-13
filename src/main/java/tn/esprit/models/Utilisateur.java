@@ -1,10 +1,11 @@
 package tn.esprit.models;
 
 public class Utilisateur {
-    private int id_user; // Changement de id -> id_user
+    private int id_user;
     private String nom;
     private String prenom;
     private String email;
+    private int cin;
     private String motDePasse;
     private Role role;
 
@@ -12,19 +13,21 @@ public class Utilisateur {
 
     public Utilisateur() {}
 
-    public Utilisateur(int id_user, String nom, String prenom, String email, String motDePasse, Role role) {
+    public Utilisateur(int id_user, String nom, String prenom, String email, int cin, String motDePasse, Role role) {
         this.id_user = id_user;
         this.nom = nom;
         this.prenom = prenom;
         this.email = email;
+        this.cin = cin;
         this.motDePasse = motDePasse;
         this.role = role;
     }
 
-    public Utilisateur(String nom, String prenom, String email, String motDePasse, Role role) {
+    public Utilisateur(String nom, String prenom, String email, int cin, String motDePasse, Role role) {
         this.nom = nom;
         this.prenom = prenom;
         this.email = email;
+        this.cin = cin;
         this.motDePasse = motDePasse;
         this.role = role;
     }
@@ -61,6 +64,14 @@ public class Utilisateur {
         this.email = email;
     }
 
+    public int getCin() {
+        return cin;
+    }
+
+    public void setCin(int cin) {
+        this.cin = cin;
+    }
+
     public String getMotDePasse() {
         return motDePasse;
     }
@@ -84,6 +95,7 @@ public class Utilisateur {
                 ", nom='" + nom + '\'' +
                 ", prenom='" + prenom + '\'' +
                 ", email='" + email + '\'' +
+                ", cin=" + cin +
                 ", motDePasse='" + motDePasse + '\'' +
                 ", role=" + role +
                 "}\n";
