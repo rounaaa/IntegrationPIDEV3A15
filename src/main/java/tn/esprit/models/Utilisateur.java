@@ -1,19 +1,17 @@
 package tn.esprit.models;
 
-public class Utilisateur {
+public abstract class Utilisateur {
     private int id_user;
     private String nom;
     private String prenom;
     private String email;
     private int cin;
     private String motDePasse;
-    private Role role;
-
-    public enum Role { ADMIN, CITOYEN }
+    private String role;
 
     public Utilisateur() {}
 
-    public Utilisateur(int id_user, String nom, String prenom, String email, int cin, String motDePasse, Role role) {
+    public Utilisateur(int id_user, String nom, String prenom, String email, int cin, String motDePasse, String role) {
         this.id_user = id_user;
         this.nom = nom;
         this.prenom = prenom;
@@ -23,13 +21,12 @@ public class Utilisateur {
         this.role = role;
     }
 
-    public Utilisateur(String nom, String prenom, String email, int cin, String motDePasse, Role role) {
+    public Utilisateur(String nom, String prenom, String email, int cin, String motDePasse) {
         this.nom = nom;
         this.prenom = prenom;
         this.email = email;
         this.cin = cin;
         this.motDePasse = motDePasse;
-        this.role = role;
     }
 
     public int getId_user() {
@@ -79,14 +76,14 @@ public class Utilisateur {
     public void setMotDePasse(String motDePasse) {
         this.motDePasse = motDePasse;
     }
-
-    public Role getRole() {
+    public String getRole() {
         return role;
     }
 
-    public void setRole(Role role) {
+    public void setRole(String role) {
         this.role = role;
     }
+
 
     @Override
     public String toString() {
@@ -97,7 +94,7 @@ public class Utilisateur {
                 ", email='" + email + '\'' +
                 ", cin=" + cin +
                 ", motDePasse='" + motDePasse + '\'' +
-                ", role=" + role +
-                "}\n";
+                ", role=" + getRole() +
+                "}";
     }
 }
