@@ -27,7 +27,7 @@ public class Main {
             System.out.println(utilisateur);
         }
 
-        // Test de la mise à jour d'un Admin :
+   // Test de la mise à jour d'un Admin :
         admin.setEmail("john.updated@example.com"); // Mise à jour de l'email
         service.update(admin);
         System.out.println("Admin mis à jour : " + admin);
@@ -41,6 +41,7 @@ public class Main {
         for (Utilisateur utilisateur : service.getAll()) {
             System.out.println(utilisateur);
         }
+
         // Test de la suppression d'un Admin :
         service.delete(admin.getId_user());
         System.out.println("Admin supprimé : " + admin);
@@ -54,6 +55,7 @@ public class Main {
         for (Utilisateur utilisateur : service.getAll()) {
             System.out.println(utilisateur);
         }
+
 
     }
 }

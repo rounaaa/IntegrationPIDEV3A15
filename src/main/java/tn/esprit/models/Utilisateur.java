@@ -1,5 +1,7 @@
 package tn.esprit.models;
 
+import org.mindrot.jbcrypt.BCrypt;
+
 public abstract class Utilisateur {
     private int id_user;
     private String nom;
@@ -17,7 +19,7 @@ public abstract class Utilisateur {
         this.prenom = prenom;
         this.email = email;
         this.cin = cin;
-        this.motDePasse = motDePasse;
+        this.motDePasse = hashPassword(motDePasse); // Hachage du mot de passe
         this.role = role;
     }
 
@@ -26,7 +28,7 @@ public abstract class Utilisateur {
         this.prenom = prenom;
         this.email = email;
         this.cin = cin;
-        this.motDePasse = motDePasse;
+        this.motDePasse = hashPassword(motDePasse); // Hachage du mot de passe
     }
 
     public int getId_user() {
@@ -74,8 +76,9 @@ public abstract class Utilisateur {
     }
 
     public void setMotDePasse(String motDePasse) {
-        this.motDePasse = motDePasse;
+        this.motDePasse = hashPassword(motDePasse); // Hachage avant stockage
     }
+
     public String getRole() {
         return role;
     }
@@ -84,6 +87,10 @@ public abstract class Utilisateur {
         this.role = role;
     }
 
+    // Hachage du mot de passe avec BCrypt
+    private String hashPassword(String plainTextPassword) {
+        return BCrypt.hashpw(plainTextPassword, BCrypt.gensalt(12));
+    }
 
     @Override
     public String toString() {
@@ -93,7 +100,6 @@ public abstract class Utilisateur {
                 ", prenom='" + prenom + '\'' +
                 ", email='" + email + '\'' +
                 ", cin=" + cin +
-                ", motDePasse='" + motDePasse + '\'' +
                 ", role=" + getRole() +
                 "}";
     }
