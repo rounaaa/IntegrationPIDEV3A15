@@ -133,18 +133,23 @@ public class ServiceBorne implements IService<Borne_Pompe>{
         }
 
     }
-    @Override
-    public void deleteID(int idborne) {
-        String qry = "DELETE FROM `` WHERE `id_borne` = ?";
-        try {
-            PreparedStatement pstm = cnx.prepareStatement(qry);
-            pstm.setInt(1,idborne);
-            pstm.executeUpdate();
+    public void deleteID(int id_borne) {
+        String qry = "DELETE FROM bornes WHERE id_borne= ?";
+        try (
+             PreparedStatement pstm = cnx.prepareStatement(qry)) {
+            pstm.setInt(1, id_borne);
+            int rowsAffected = pstm.executeUpdate();
+            if (rowsAffected > 0) {
+                System.out.println("Station supprimée avec succès !");
+            } else {
+                System.out.println("Aucune station trouvée avec l'ID " + id_borne);
+            }
         } catch (SQLException e) {
-            System.out.println(e.getMessage());
+            e.printStackTrace();
+            throw new RuntimeException("Erreur lors de la suppression de la borne", e);
         }
-
     }
+
 
     public tarifs getTarifById(int idTarif) {
         tarifs tarif = null;

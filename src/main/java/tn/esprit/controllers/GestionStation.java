@@ -38,7 +38,7 @@ public class GestionStation {
     private Station stationSelectionnee = null;
 
     public void initialize(URL url, ResourceBundle rb) {
-        System.out.println("🔍 Initialisation du contrôleur GestionStation...");
+        System.out.println(" init success");
 
 
         List<Utilisateur> utilisateurs = serviceStation.getAllUsers();
@@ -71,9 +71,57 @@ public class GestionStation {
     @FXML
     public void ajouterStation(ActionEvent actionEvent) {
         try {
-            if (tfNomStation.getText().isEmpty() || tfEmplacement.getText().isEmpty() || tfCapaciteMax.getText().isEmpty()) {
-                liststation.getItems().clear();
-                liststation.getItems().add("❌ Erreur : Veuillez remplir tous les champs !");
+            liststation.getItems().clear();
+
+            if (tfNomStation.getText().isEmpty() || tfEmplacement.getText().isEmpty() ||
+                    tfCapaciteMax.getText().isEmpty() || tfHeuresOuverture.getText().isEmpty() ||
+                    tfContact.getText().isEmpty() || tfLatitude.getText().isEmpty() ||
+                    tfLongitude.getText().isEmpty()) {
+
+                liststation.getItems().add(" Erreur : Veuillez remplir tous les champs !");
+                return;
+            }
+
+            if (cbStatus.getValue() == null) {
+                liststation.getItems().add(" Erreur : Veuillez sélectionner un statut !");
+                return;
+            }
+
+            if (cbUserId.getValue() == null) {
+                liststation.getItems().add(" Erreur : Veuillez sélectionner un utilisateur !");
+                return;
+            }
+
+            // Validation du format de l'heure d'ouverture (HH:MM)
+            if (!tfHeuresOuverture.getText().matches("^(?:[01]\\d|2[0-3]):[0-5]\\d$")) {
+                liststation.getItems().add(" Erreur : L'heure d'ouverture doit être au format HH:MM !");
+                return;
+            }
+
+            if (!tfNomStation.getText().matches("^[a-zA-Z\\s]+$")) {
+                liststation.getItems().add(" Erreur : Le nom de la station ne doit contenir que des lettres !");
+                return;
+            }
+
+            if (!tfEmplacement.getText().matches("^[a-zA-Z0-9\\s]+$")) {
+                liststation.getItems().add("Erreur : L'emplacement ne doit contenir que des lettres et chiffres !");
+                return;
+            }
+
+            if (!tfCapaciteMax.getText().matches("^\\d+$")) {
+                liststation.getItems().add("Erreur : La capacité maximale doit être un nombre entier positif !");
+                return;
+            }
+
+            if (!tfLatitude.getText().matches("^-?\\d+(\\.\\d{1,6})?$") ||
+                    !tfLongitude.getText().matches("^-?\\d+(\\.\\d{1,6})?$")) {
+
+                liststation.getItems().add(" Erreur : Les coordonnées doivent être des nombres valides (max 6 décimales) !");
+                return;
+            }
+
+            if (!tfContact.getText().matches("^\\+?\\d{8,15}$")) {
+                liststation.getItems().add(" Erreur : Le numéro de contact n'est pas valide !");
                 return;
             }
 
@@ -85,29 +133,28 @@ public class GestionStation {
             String contact = tfContact.getText();
             double latitude = Double.parseDouble(tfLatitude.getText());
             double longitude = Double.parseDouble(tfLongitude.getText());
-
             Utilisateur user = cbUserId.getValue();
-            if (user == null) {
-                liststation.getItems().clear();
-                liststation.getItems().add("❌ Erreur : Veuillez sélectionner un utilisateur !");
-                return;
-            }
 
-            Station station = new Station(nomStation, emplacement, status, user, capaciteMax, heuresOuverture, contact, latitude, longitude);
+            // Création de la station
+            Station station = new Station(nomStation, emplacement, status, user, capaciteMax,
+                    heuresOuverture, contact, latitude, longitude);
+
+            // Ajouter la station dans le service
             serviceStation.add(station);
 
-            liststation.getItems().clear();
-            liststation.getItems().add("✅ Station ajoutée avec succès !");
+            liststation.getItems().add(" Station ajoutée avec succès !");
             afficherStations(null);
+
         } catch (NumberFormatException e) {
-            liststation.getItems().clear();
-            liststation.getItems().add("❌ Erreur : Vérifiez les champs numériques !");
+            liststation.getItems().add(" Erreur : Vérifiez les champs numériques !");
         } catch (Exception e) {
-            liststation.getItems().clear();
-            liststation.getItems().add("❌ Erreur : " + e.getMessage());
+            liststation.getItems().add(" Erreur : " + e.getMessage());
         }
+
         resetFields();
     }
+
+
     private void resetFields() {
         tfNomStation.clear();
         tfEmplacement.clear();
@@ -124,7 +171,7 @@ public class GestionStation {
     public void miseajourStation(ActionEvent actionEvent) {
         if (stationSelectionnee == null) {
             liststation.getItems().clear();
-            liststation.getItems().add("❌ Erreur : Aucune station sélectionnée !");
+            liststation.getItems().add(" Erreur : Aucune station sélectionnée !");
             return;
         }
 
@@ -143,22 +190,22 @@ public class GestionStation {
                 stationSelectionnee.setUser(selectedUser);
             } else {
                 liststation.getItems().clear();
-                liststation.getItems().add("❌ Erreur : Veuillez sélectionner un utilisateur !");
+                liststation.getItems().add(" Erreur : Veuillez sélectionner un utilisateur !");
                 return;
             }
 
             serviceStation.update(stationSelectionnee);
             liststation.getItems().clear();
-            liststation.getItems().add("✅ Station mise à jour avec succès !");
+            liststation.getItems().add(" Station mise à jour avec succès !");
             afficherStations(null);
 
             stationSelectionnee = null;
         } catch (NumberFormatException e) {
             liststation.getItems().clear();
-            liststation.getItems().add("❌ Erreur : Vérifiez les champs numériques !");
+            liststation.getItems().add(" Erreur : Vérifiez les champs numériques !");
         } catch (Exception e) {
             liststation.getItems().clear();
-            liststation.getItems().add("❌ Erreur : " + e.getMessage());
+            liststation.getItems().add(" Erreur : " + e.getMessage());
         }
         resetFields();
     }
@@ -218,7 +265,7 @@ public class GestionStation {
     public void SupprimerStation(ActionEvent actionEvent) {
         if (stationSelectionnee == null) {
             liststation.getItems().clear();
-            liststation.getItems().add("❌ Erreur : Aucune station sélectionnée !");
+            liststation.getItems().add(" Erreur : Aucune station sélectionnée !");
             return;
         }
 
@@ -231,10 +278,11 @@ public class GestionStation {
         if (result.isPresent() && result.get() == ButtonType.OK) {
             serviceStation.deleteID(stationSelectionnee.getId_station());
             liststation.getItems().clear();
-            liststation.getItems().add("✅ Station supprimée avec succès !");
+            liststation.getItems().add(" Station supprimée avec succès !");
             afficherStations(null);
             stationSelectionnee = null;
         }
+
         resetFields();
     }
 

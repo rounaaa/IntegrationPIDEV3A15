@@ -96,7 +96,10 @@
                 <Button onAction="#ajouterBorne" style="-fx-background-color: #2b781a; -fx-text-fill: white;" text="Ajouter Borne" />
              <Button onAction="#miseajourBorne" style="-fx-background-color: #2b781a; -fx-text-fill: white;" text="Mettre à jour" />
            <Button onAction="#SupprimerBorne" style="-fx-background-color: #2b781a; -fx-text-fill: white;" text="Supprimer Borne" />
-         </HBox>
+                <Button onAction="#OuvrirGestionStation" style="-fx-background-color: #2b781a; -fx-text-fill: white;"  text="Ouvrir Gestion Station" />
+
+            </HBox>
+
 
          <!-- Liste des Borne -->
             <ListView fx:id="listBorne" prefHeight="200" prefWidth="400" />

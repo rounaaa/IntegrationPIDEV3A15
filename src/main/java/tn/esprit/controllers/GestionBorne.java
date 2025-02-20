@@ -2,7 +2,12 @@ package tn.esprit.controllers;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.stage.Stage;
 import tn.esprit.models.Borne_Pompe;
 import tn.esprit.models.Station;
 import tn.esprit.models.Utilisateur;
@@ -10,6 +15,7 @@ import tn.esprit.models.tarifs;
 import tn.esprit.services.ServiceBorne;
 import tn.esprit.services.ServiceStation;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
 
@@ -125,8 +131,24 @@ public class GestionBorne {
     @FXML
     public void ajouterBorne(ActionEvent event) {
         try {
-            if (cbType.getValue() == null || cbEtat.getValue() == null || cbDernierUtilisateur.getValue() == null || cbStation.getValue() == null) {
+            if (tfConnecteur.getText().isEmpty() || tfPuissance.getText().isEmpty() ||
+                    tfEnergieConsommee.getText().isEmpty() || cbType.getValue() == null ||
+                    cbEtat.getValue() == null || cbDernierUtilisateur.getValue() == null ||
+                    cbStation.getValue() == null) {
+
                 listBorne.getItems().add(" Erreur: Tous les champs doivent être remplis!");
+                return;
+            }
+
+            if (!tfPuissance.getText().matches("^\\d+(\\.\\d{1,2})?$") ||
+                    !tfEnergieConsommee.getText().matches("^\\d+(\\.\\d{1,2})?$")) {
+
+                listBorne.getItems().add(" Erreur: La puissance et l'énergie consommée doivent être des nombres valides (max 2 décimales)!");
+                return;
+            }
+
+            if (!tfConnecteur.getText().matches("^[a-zA-Z]+$")) {
+                listBorne.getItems().add("Erreur: Le type de connecteur ne doit contenir que des lettres !");
                 return;
             }
 
@@ -139,25 +161,35 @@ public class GestionBorne {
             double cout = Double.parseDouble(tfCout.getText());
             Utilisateur user = cbDernierUtilisateur.getValue();
             Station station = cbStation.getValue();
-            tarifs tarif = serviceBorne.getTarifById(type == Borne_Pompe.Type.STAN ? 1 : (type == Borne_Pompe.Type.FAST ? 2 : 3));
+            tarifs tarif = serviceBorne.getTarifById(type == Borne_Pompe.Type.STAN ? 1 :
+                    (type == Borne_Pompe.Type.FAST ? 2 : 3));
 
-            Borne_Pompe borne = new Borne_Pompe(type, puissance, etat, connecteur, disponibilite, energieConsommee, user, station, tarif, cout);
+            // Création de la borne
+            Borne_Pompe borne = new Borne_Pompe(type, puissance, etat, connecteur, disponibilite,
+                    energieConsommee, user, station, tarif, cout);
+
+            // Ajout dans la base de données
             serviceBorne.add(borne);
             listBorne.getItems().add(" Borne ajoutée avec succès!");
+
+            // Réinitialisation des champs après l'ajout
+            resetFields();
+
         } catch (NumberFormatException e) {
             listBorne.getItems().add(" Erreur: Vérifiez les champs numériques!");
         } catch (Exception e) {
             listBorne.getItems().add(" Erreur inconnue: " + e.getMessage());
         }
-        resetFields();
     }
+
     public void SupprimerBorne(ActionEvent actionEvent) {
         if (borneSelectionnee == null) {
             listBorne.getItems().clear();
-            listBorne.getItems().add(" Erreur : Aucune station sélectionnée !");
+            listBorne.getItems().add("Erreur : Aucune borne sélectionnée !");
             return;
         }
 
+        // Confirmation avant suppression
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle("Confirmation de suppression");
         alert.setHeaderText("Supprimer la borne ?");
@@ -165,14 +197,23 @@ public class GestionBorne {
 
         Optional<ButtonType> result = alert.showAndWait();
         if (result.isPresent() && result.get() == ButtonType.OK) {
-            serviceStation.deleteID(borneSelectionnee.getId_borne());
+            // Appel à la méthode de suppression de la borne dans le serviceBorne
+            serviceBorne.deleteID(borneSelectionnee.getId_borne());
+
+            afficherBornes(actionEvent);
+
+            listBorne.refresh(); // Cela permet de recharger la liste à l'écran
+
             listBorne.getItems().clear();
-            listBorne.getItems().add(" Station supprimée avec succès !");
-            afficherBornes(null);
-            borneSelectionnee = null;
+            listBorne.getItems().add("Borne supprimée avec succès !");
+            borneSelectionnee = null; // Réinitialisation de la borne sélectionnée
         }
-        resetFields();
+        afficherBornes(actionEvent);
+
+        resetFields(); // Réinitialisation des champs
     }
+
+
     @FXML
     public void afficherBornes(ActionEvent actionEvent) {
         listBorne.getItems().clear();
@@ -242,7 +283,7 @@ public class GestionBorne {
     @FXML
     public void miseajourBorne(ActionEvent actionEvent) {
         if (borneSelectionnee == null) {
-            listBorne.getItems().add("❌ Erreur: Aucune borne sélectionnée !");
+            listBorne.getItems().add(" Erreur: Aucune borne sélectionnée !");
             System.out.println("Aucune borne sélectionnée pour mise à jour");
             return;
         }
@@ -258,7 +299,27 @@ public class GestionBorne {
 
         serviceBorne.update(borneSelectionnee);
 
-        listBorne.getItems().add("✅ Borne mise à jour avec succès !");
+        listBorne.getItems().add(" Borne mise à jour avec succès !");
         afficherBornes(actionEvent);
+    }
+    public void OuvrirGestionStation(ActionEvent actionEvent) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/GestionStation.fxml"));
+            Parent root = loader.load();
+
+            Scene scene = new Scene(root);
+
+            Stage stage = new Stage();
+            stage.setTitle("--------Gestion des stations-----------");
+            stage.setScene(scene);
+
+            stage.show();
+
+            Stage currentStage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
+            currentStage.close();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }
