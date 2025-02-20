@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+
+<AnchorPane xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/23.0.1" fx:controller="tn.esprit.controllers.GestionStation">
+    <children>
+        <VBox alignment="CENTER" spacing="15" AnchorPane.bottomAnchor="20" AnchorPane.leftAnchor="20" AnchorPane.rightAnchor="20" AnchorPane.topAnchor="20">
+            <!-- Titre principal -->
+            <Label style="-fx-font-size: 22px; -fx-font-weight: bold; -fx-text-fill: #2b781a;" text="Gestion des Stations" />
+
+            <!-- Zone de saisie organisée en grille -->
+            <GridPane hgap="10" vgap="10">
+                <padding>
+                    <Insets bottom="10" left="10" right="10" top="10" />
+                </padding>
+                <columnConstraints>
+                    <ColumnConstraints percentWidth="30" />
+                    <ColumnConstraints percentWidth="70" />
+                </columnConstraints>
+
+                <!-- Nom de la station -->
+                <Label text="Nom Station:" GridPane.columnIndex="0" GridPane.rowIndex="0" />
+                <TextField fx:id="tfNomStation" promptText="Nom de la station" GridPane.columnIndex="1" GridPane.rowIndex="0" />
+
+                <!-- Emplacement -->
+                <Label text="Emplacement:" GridPane.columnIndex="0" GridPane.rowIndex="1" />
+                <TextField fx:id="tfEmplacement" promptText="Emplacement" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+
+                <!-- Statut -->
+                <Label text="Statut:" GridPane.columnIndex="0" GridPane.rowIndex="2" />
+                <ComboBox fx:id="cbStatus" promptText="Statut" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+
+                <!-- Utilisateur -->
+                <Label text="Utilisateur:" GridPane.columnIndex="0" GridPane.rowIndex="3" />
+                <ComboBox fx:id="cbUserId" promptText="Utilisateur" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+
+                <!-- Capacité Max -->
+                <Label text="Capacité Max:" GridPane.columnIndex="0" GridPane.rowIndex="4" />
+                <TextField fx:id="tfCapaciteMax" promptText="Capacité Max" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+
+                <!-- Heures d'Ouverture -->
+                <Label text="Heures d'Ouverture:" GridPane.columnIndex="0" GridPane.rowIndex="5" />
+                <TextField fx:id="tfHeuresOuverture" promptText="Heures d'ouverture" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+
+                <!-- Contact -->
+                <Label text="Contact:" GridPane.columnIndex="0" GridPane.rowIndex="6" />
+                <TextField fx:id="tfContact" promptText="Contact" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+
+                <!-- Latitude -->
+                <Label text="Latitude:" GridPane.columnIndex="0" GridPane.rowIndex="7" />
+                <TextField fx:id="tfLatitude" promptText="Latitude" GridPane.columnIndex="1" GridPane.rowIndex="7" />
+
+                <!-- Longitude -->
+                <Label text="Longitude:" GridPane.columnIndex="0" GridPane.rowIndex="8" />
+                <TextField fx:id="tfLongitude" promptText="Longitude" GridPane.columnIndex="1" GridPane.rowIndex="8" />
+            <rowConstraints>
+               <RowConstraints />
+               <RowConstraints />
+               <RowConstraints />
+               <RowConstraints />
+               <RowConstraints />
+               <RowConstraints />
+               <RowConstraints />
+               <RowConstraints />
+               <RowConstraints />
+            </rowConstraints>
+            </GridPane>
+
+            <!-- Boutons d'action -->
+            <HBox alignment="CENTER" spacing="15">
+                <Button onAction="#ajouterStation" style="-fx-background-color: #2b781a; -fx-text-fill: white;" text="Ajouter" />
+                <Button onAction="#miseajourStation" style="-fx-background-color: #2b781a; -fx-text-fill: white;" text="Mettre à jour" />
+                <Button onAction="#SupprimerStation" style="-fx-background-color: #2b781a; -fx-text-fill: white;" text="supprimer" />
+            <Button onAction="#OuvrirGestionBorne" style="-fx-background-color: #2b781a; -fx-text-fill: white;"  text="Ouvrir Gestion Borne" />
+            </HBox>
+
+            <!-- Liste des stations -->
+            <ListView fx:id="liststation" prefHeight="200" prefWidth="400" />
+        </VBox>
+    </children>
+</AnchorPane>

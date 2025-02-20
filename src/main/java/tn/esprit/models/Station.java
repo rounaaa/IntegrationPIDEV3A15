@@ -1,12 +1,14 @@
 package tn.esprit.models;
+
 import java.util.List;
 
 public class Station {
 
+    // Attributs de la station
     private int id_station;
     private String nom_station;
     private String emplacement;
-    private Status status; // Utilisation d'une enum
+    private Status status; // Utilisation d'une enum pour le status
     private Utilisateur user;
     private int capacite_max;
     private String heures_ouverture;
@@ -16,57 +18,11 @@ public class Station {
 
     private List<Borne_Pompe> bornes;
 
-    public List<Borne_Pompe> getBornes() {
-        return bornes;
-    }
-
-    public void setBornes(List<Borne_Pompe> bornes) {
-        this.bornes = bornes;
-    }
-
-
-    public double getLatitude() {
-        return latitude;
-    }
-
-    public void setLatitude(double latitude) {
-        this.latitude = latitude;
-    }
-
-    public double getLongitude() {
-        return longitude;
-    }
-
-    public void setLongitude(double longitude) {
-        this.longitude = longitude;
-    }
-
-    public String getContact() {
-        return contact;
-    }
-
-    public void setContact(String contact) {
-        this.contact = contact;
-    }
-    public String getHeuresOuverture() {
-        return heures_ouverture;
-    }
-
-    public void setHeuresOuverture(String heures_ouverture) {
-        this.heures_ouverture = heures_ouverture;
-    }
-    public int getCapaciteMax() {
-        return capacite_max;
-    }
-
-    public void setCapaciteMax(int capacite_max) {
-        this.capacite_max = capacite_max;
-    }
-
-    // Enum interne pour Status
+    // Enum interne pour le statut de la station
     public enum Status {
         OPEN("active"),
         CLOSED("fermé");
+
         private final String value;
 
         Status(String value) {
@@ -87,19 +43,13 @@ public class Station {
             throw new IllegalArgumentException("Statut invalide : " + status);
         }
     }
-    public Status getStatus() {
-        return status;
-    }
-    // Si vous devez définir le status à partir d'une String (ex: depuis la base de données)
-    public void setStatus(String status) {
-        this.status = Status.fromString(status);
-    }
+
     // Constructeurs
     public Station() {
     }
 
-    public Station(String nom_station, String emplacement, Status status,Utilisateur user, int capacite_max,
-                   String heures_ouverture, String contact, double latitude, double longitude,int id_station) {
+    public Station(String nom_station, String emplacement, Status status, Utilisateur user, int capacite_max,
+                   String heures_ouverture, String contact, double latitude, double longitude, int id_station) {
         this.nom_station = nom_station;
         this.emplacement = emplacement;
         this.status = status;
@@ -112,7 +62,7 @@ public class Station {
         this.id_station = id_station;
     }
 
-    public Station(String nom_station, String emplacement, Status status,Utilisateur user, int capacite_max,
+    public Station(String nom_station, String emplacement, Status status, Utilisateur user, int capacite_max,
                    String heures_ouverture, String contact, double latitude, double longitude) {
         this.nom_station = nom_station;
         this.emplacement = emplacement;
@@ -134,14 +84,6 @@ public class Station {
         this.id_station = id_station;
     }
 
-    public Utilisateur getUser() {
-
-        return user;
-    }
-
-    public void setUser(Utilisateur user) {
-        this.user = user;
-    }
     public String getNom_station() {
         return nom_station;
     }
@@ -154,12 +96,75 @@ public class Station {
         return emplacement;
     }
 
-    public void setEmplacement(String emplacement) { // Correction ici
+    public void setEmplacement(String emplacement) {
         this.emplacement = emplacement;
     }
 
+    public Status getStatus() {
+        return status;
+    }
 
+    public void setStatus(String status) {
+        this.status = Status.fromString(status);
+    }
 
+    public Utilisateur getUser() {
+        return user;
+    }
+
+    public void setUser(Utilisateur user) {
+        this.user = user;
+    }
+
+    public int getCapaciteMax() {
+        return capacite_max;
+    }
+
+    public void setCapaciteMax(int capacite_max) {
+        this.capacite_max = capacite_max;
+    }
+
+    public String getHeuresOuverture() {
+        return heures_ouverture;
+    }
+
+    public void setHeuresOuverture(String heures_ouverture) {
+        this.heures_ouverture = heures_ouverture;
+    }
+
+    public String getContact() {
+        return contact;
+    }
+
+    public void setContact(String contact) {
+        this.contact = contact;
+    }
+
+    public double getLatitude() {
+        return latitude;
+    }
+
+    public void setLatitude(double latitude) {
+        this.latitude = latitude;
+    }
+
+    public double getLongitude() {
+        return longitude;
+    }
+
+    public void setLongitude(double longitude) {
+        this.longitude = longitude;
+    }
+
+    public List<Borne_Pompe> getBornes() {
+        return bornes;
+    }
+
+    public void setBornes(List<Borne_Pompe> bornes) {
+        this.bornes = bornes;
+    }
+
+    // Méthode toString pour afficher une station
     @Override
     public String toString() {
         return "Station{" +
@@ -168,7 +173,6 @@ public class Station {
                 ", nom_station='" + nom_station + '\'' +
                 ", status='" + status.getValue() + '\'' +
                 ", id_utilisateur='" + (user != null ? user.getId_user() : "Non assigné") + '\'' +
-
                 "}\n";
     }
 }

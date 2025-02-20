@@ -15,7 +15,6 @@ public class ServiceBorne implements IService<Borne_Pompe>{
 
     private Connection cnx;
 
-    // Constructeur corrigé
     public ServiceBorne() {
         cnx = MyDatabase.getInstance().getCnx();
     }
@@ -23,7 +22,6 @@ public class ServiceBorne implements IService<Borne_Pompe>{
     @Override
     public void add(Borne_Pompe borne) {
         borne.calculerCout();
-        // Création de la requête SQL
         String qry = "INSERT INTO `bornes`(`type`, `etat`, `puissance_kW`, `connecteur_type`, `disponibilite`, `energie_consommee`, `dernier_utilisateur`, `id_station`, `id_tarif`, `cout`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
         try {
             PreparedStatement pstm = cnx.prepareStatement(qry);
@@ -34,8 +32,19 @@ public class ServiceBorne implements IService<Borne_Pompe>{
             pstm.setBoolean(5, borne.isDisponible());
             pstm.setDouble(6, borne.getEnergie_consommee());
             pstm.setInt(7, borne.getDernier_utilisateur().getId_user());
-            pstm.setInt(8, borne.getStation().getId_station());
-            pstm.setInt(9, borne.getTarif().getId_tarif());
+
+            if (borne.getStation() != null) {
+                pstm.setInt(8, borne.getStation().getId_station());
+            } else {
+                pstm.setNull(8, Types.INTEGER);
+            }
+
+            if (borne.getTarif() != null) {
+                pstm.setInt(9, borne.getTarif().getId_tarif());
+            } else {
+                pstm.setNull(9, Types.INTEGER);
+            }
+
             pstm.setDouble(10, borne.getCout());
             pstm.executeUpdate();
         } catch (SQLException e) {
@@ -43,10 +52,12 @@ public class ServiceBorne implements IService<Borne_Pompe>{
         }
     }
 
+
     @Override
     public List<Borne_Pompe> getAll() {
+
         List<Borne_Pompe> bornes = new ArrayList<>();
-        String qry = "SELECT * FROM `bornes`";  // Correction du nom de la table
+        String qry = "SELECT * FROM `bornes`";
 
         try {
             Statement stm = cnx.createStatement();
@@ -54,6 +65,7 @@ public class ServiceBorne implements IService<Borne_Pompe>{
 
             while (rs.next()) {
                 Borne_Pompe p = new Borne_Pompe();
+                p.setId_borne(rs.getInt("id_borne"));
                 p.setType(Borne_Pompe.Type.fromString(rs.getString("type")));
                 p.setEtat(Borne_Pompe.Etat.fromString(rs.getString("etat")));
                 p.setPuissance_kW(rs.getDouble("puissance_kW"));
@@ -61,14 +73,16 @@ public class ServiceBorne implements IService<Borne_Pompe>{
                 p.setDisponibilile(rs.getBoolean("disponibilite"));
                 p.setEnergie_consommee(rs.getDouble("energie_consommee"));
                 p.setCout(rs.getDouble("cout"));
+
                 Utilisateur u = new Utilisateur();
-                u.setId_user(rs.getInt("id_user"));
+                u.setId_user(rs.getInt("dernier_utilisateur"));
                 p.setUser(u);
+
                 Station station = new Station();
                 station.setId_station(rs.getInt("id_station"));
                 p.setStation(station);
-                tarifs t = new tarifs();
-                t.setId_tarif(rs.getInt("id_tarif"));
+
+                tarifs t = getTarifById(rs.getInt("id_tarif"));
                 p.setTarif(t);
 
                 bornes.add(p);
@@ -78,6 +92,7 @@ public class ServiceBorne implements IService<Borne_Pompe>{
         }
         return bornes;
     }
+
     @Override
     public void update(Borne_Pompe borne) {
         borne.calculerCout();
@@ -119,17 +134,18 @@ public class ServiceBorne implements IService<Borne_Pompe>{
 
     }
     @Override
-    public void deleteID(int id_borne) {
+    public void deleteID(int idborne) {
         String qry = "DELETE FROM `` WHERE `id_borne` = ?";
         try {
             PreparedStatement pstm = cnx.prepareStatement(qry);
-            pstm.setInt(1,id_borne);
+            pstm.setInt(1,idborne);
             pstm.executeUpdate();
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
 
     }
+
     public tarifs getTarifById(int idTarif) {
         tarifs tarif = null;
         String qry = "SELECT * FROM tarifs WHERE id_tarif = ?";

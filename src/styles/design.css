@@ -1,0 +1,66 @@
+/* ---- Style Général ---- */
+AnchorPane {
+    -fx-background-color: #f4f4f4;
+}
+
+/* ---- Labels ---- */
+Label {
+    -fx-font-size: 14px;
+    -fx-text-fill: #007acc; /* Bleu techno */
+    -fx-font-weight: bold;
+}
+
+/* ---- Champs de texte ---- */
+TextField, ComboBox {
+    -fx-pref-height: 35px;
+    -fx-border-color: #00cc66; /* Vert techno */
+    -fx-border-radius: 5px;
+    -fx-background-radius: 5px;
+    -fx-padding: 5px;
+    -fx-font-size: 14px;
+}
+
+TextField:focused, ComboBox:focused {
+    -fx-border-color: #007acc; /* Bleu techno */
+    -fx-border-width: 2px;
+}
+
+/* ---- Boutons ---- */
+Button {
+    -fx-background-color: #00cc66; /* Vert techno */
+    -fx-text-fill: white;
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-border-radius: 5px;
+    -fx-background-radius: 5px;
+    -fx-padding: 10px 20px;
+    -fx-cursor: hand;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.2), 5, 0, 0, 2);
+}
+
+Button:hover {
+    -fx-background-color: #00994d; /* Vert foncé */
+}
+
+Button:pressed {
+    -fx-background-color: #007a3d;
+}
+
+/* ---- ListView ---- */
+ListView {
+    -fx-border-color: #00cc66;
+    -fx-border-radius: 5px;
+    -fx-background-radius: 5px;
+    -fx-background-color: white;
+}
+
+.list-cell {
+    -fx-padding: 10px;
+    -fx-font-size: 14px;
+}
+
+.list-cell:selected {
+    -fx-background-color: #007acc; /* Bleu techno */
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+}

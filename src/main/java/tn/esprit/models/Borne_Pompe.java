@@ -75,7 +75,6 @@ public class Borne_Pompe {
         calculerCout();
     }
 
-    // Enum pour Type
     public enum Type {
         STAN("standard"),
         FAST("rapide"),
@@ -101,7 +100,6 @@ public class Borne_Pompe {
         }
     }
 
-    // Enum pour Etat
     public enum Etat {
         ACTV("active"),
         NO_ACTV("hors service");
@@ -126,7 +124,6 @@ public class Borne_Pompe {
         }
     }
 
-    // Constructeurs
     public Borne_Pompe() {
     }
     public Borne_Pompe( Type type,double puissance_kW, Etat etat,String connecteur_type,boolean disponibilite,double energie_consommee,
@@ -159,8 +156,6 @@ public class Borne_Pompe {
 
 
     }
-
-    // Getters et Setters
     public int getId_borne() {
         return id_borne;
     }
@@ -194,28 +189,35 @@ public class Borne_Pompe {
         this.etat = etat;
     }
 
-    // Si vous voulez définir l'état à partir d'une String (ex: depuis la base de données)
     public void setEtat(String etat) {
         this.etat = Etat.fromString(etat);
     }
 
     @Override
     public String toString() {
-        return "Borne_Pompe{" +
-                "id_borne=" + id_borne +
-                ", type=" + type.getValue() +
-                ", etat=" + etat.getValue() +
-                "station=" + station +
-                ", tarif=" + (tarif != null ? tarif.toString() : "null") +
-
-                '}';
+        return "🔌 Borne ID: " + id_borne +
+                "\n⚡ Type: " + type.getValue() +
+                "\n💡 État: " + etat.getValue() +
+                "\n⚡ Puissance: " + puissance_kW + " kW" +
+                "\n🔗 Connecteur: " + connecteur_type +
+                "\n📶 Disponibilité: " + (disponibilite ? "Oui" : "Non") +
+                "\n🔋 Énergie consommée: " + energie_consommee +
+                "\n👤 Dernier utilisateur: " + (dernier_utilisateur != null
+                ? dernier_utilisateur.getNom() + " (ID: " + dernier_utilisateur.getId_user() + ")"
+                : "Aucun") +
+                "\n🏠 Station: " + (station != null
+                ? station.getNom_station() + " (ID: " + station.getId_station() + ")"
+                : "Aucune") +
+                "\n💰 Coût: " + cout;
     }
+
     public void calculerCout() {
         if (tarif != null) {
             this.cout = this.energie_consommee * this.tarif.getTarif_par_kwh();
         } else {
-            this.cout = 0; // Valeur par défaut si aucun tarif n'est défini
+            this.cout = 0;
         }
     }
+
 
 }
