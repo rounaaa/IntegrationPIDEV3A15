@@ -1,6 +1,8 @@
 package tn.esprit.controllers;
 
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 import javafx.stage.FileChooser;
@@ -9,7 +11,6 @@ import tn.esprit.models.Document;
 import tn.esprit.services.ServiceDocument;
 
 import java.io.File;
-import java.util.Date;
 
 public class UpdateDocumentController {
 
@@ -23,36 +24,61 @@ public class UpdateDocumentController {
     private ServiceDocument serviceDocument;
     private Stage stage;
 
+    // Set the document to be updated
     public void setDocument(Document document) {
         this.document = document;
-        titreField.setText(document.getTitre());
-        statusField.setValue(document.getStatus());
-        descriptionField.setText(document.getDescription());
-        pathField.setText(document.getPath());
-        auteurField.setText(document.getAuteur());
+        populateForm();
     }
 
     public void setServiceDocument(ServiceDocument serviceDocument) {
         this.serviceDocument = serviceDocument;
     }
 
+    // Set stage
     public void setStage(Stage stage) {
         this.stage = stage;
     }
 
-    @FXML
-    private void handleUpdateDocument() {
-        document.setTitre(titreField.getText());
-        document.setStatus(statusField.getValue());
-        document.setDescription(descriptionField.getText());
-        document.setPath(pathField.getText());
-        document.setAuteur(auteurField.getText());
-        document.setDateModification(new Date());
-
-        serviceDocument.update(document);
-        stage.close();
+    // Populate the form with the selected document data
+    private void populateForm() {
+        if (document != null) {
+            titreField.setText(document.getTitre());
+            statusField.setValue(document.getStatus());
+            descriptionField.setText(document.getDescription());
+            pathField.setText(document.getPath());
+            auteurField.setText(document.getAuteur());
+        }
     }
 
+    // Handle updating the document
+    @FXML
+    private void handleUpdateDocument() {
+        if (document != null) {
+            // NEW VALUES
+            document.setTitre(titreField.getText());
+            document.setStatus(statusField.getValue());
+            document.setDescription(descriptionField.getText());
+            document.setPath(pathField.getText());
+            document.setAuteur(auteurField.getText());
+
+            // UPDATE DOC IN DATABASE
+            serviceDocument.update(document);
+
+            // Show success message
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Succès");
+            alert.setHeaderText(null);
+            alert.setContentText("Document mis à jour avec succès !");
+            alert.showAndWait();
+
+            // Close the update form
+            if (stage != null) {
+                stage.close();
+            }
+        }
+    }
+
+    // Handle browsing for a file
     @FXML
     private void handleBrowseFile() {
         FileChooser fileChooser = new FileChooser();

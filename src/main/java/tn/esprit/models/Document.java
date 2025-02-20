@@ -4,29 +4,42 @@ import java.util.Date;
 
 public class Document {
     private int id_document;
-    private String titre,status,description,type_document;
+    private String titre;
+    private String status;
+    private String description;
+    private String type_document;
     private Date date_creation;
     private Date date_modification;
+    private String path;
+    private String categorie;
+    private String auteur;
+
     public Document() {
     }
 
-    public Document(String titre, String description, String type_document, Date date_creation, Date date_modification, String status) {
+    public Document(String titre, String status, String description, String type_document, Date date_creation, Date date_modification, String path, String categorie, String auteur) {
         this.titre = titre;
+        this.status = status;
         this.description = description;
         this.type_document = type_document;
         this.date_creation = date_creation;
         this.date_modification = date_modification;
-        this.status = status;
+        this.path = path;
+        this.categorie = categorie;
+        this.auteur = auteur;
     }
 
-    public Document(int id_document, String titre, String description, String type_document, Date date_creation, Date date_modification, String status) {
+    public Document(int id_document, String titre, String status, String description, String type_document, Date date_creation, Date date_modification, String path, String categorie, String auteur) {
         this.id_document = id_document;
         this.titre = titre;
+        this.status = status;
         this.description = description;
         this.type_document = type_document;
         this.date_creation = date_creation;
         this.date_modification = date_modification;
-        this.status = status;
+        this.path = path;
+        this.categorie = categorie;
+        this.auteur = auteur;
     }
 
     public int getId() {
@@ -45,6 +58,14 @@ public class Document {
         this.titre = titre;
     }
 
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
     public String getDescription() {
         return description;
     }
@@ -53,11 +74,11 @@ public class Document {
         this.description = description;
     }
 
-    public String getType_document() {
+    public String getType() {
         return type_document;
     }
 
-    public void setType_document(String type_document) {
+    public void setType(String type_document) {
         this.type_document = type_document;
     }
 
@@ -77,12 +98,28 @@ public class Document {
         this.date_modification = date_modification;
     }
 
-    public String getStatus() {
-        return status;
+    public String getPath() {
+        return path;
     }
 
-    public void setStatus(String status) {
-        this.status = status;
+    public void setPath(String path) {
+        this.path = path;
+    }
+
+    public String getCategorie() {
+        return categorie;
+    }
+
+    public void setCategorie(String categorie) {
+        this.categorie = categorie;
+    }
+
+    public String getAuteur() {
+        return auteur;
+    }
+
+    public void setAuteur(String auteur) {
+        this.auteur = auteur;
     }
 
     @Override
@@ -90,11 +127,14 @@ public class Document {
         return "Document{" +
                 "id_document=" + id_document +
                 ", titre='" + titre + '\'' +
+                ", status='" + status + '\'' +
                 ", description='" + description + '\'' +
                 ", type_document='" + type_document + '\'' +
                 ", date_creation=" + date_creation +
                 ", date_modification=" + date_modification +
-                ", status='" + status + '\'' +
+                ", path='" + path + '\'' +
+                ", categorie='" + categorie + '\'' +
+                ", auteur='" + auteur + '\'' +
                 "}\n";
     }
 }

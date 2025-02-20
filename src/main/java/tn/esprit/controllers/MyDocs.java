@@ -36,18 +36,18 @@ public class MyDocs {
 
     @FXML
     public void initialize() {
-        // Initialize the menu list view
+        // Init menu list view
         menuListView.setItems(FXCollections.observableArrayList("Ajouter une Demande", "Consulter mes demandes"));
         menuListView.setOnMouseClicked(this::handleMenuClick);
 
-        // Initialize the type document combo box
+        // Init type document combo box
         typeDocumentComboBox.setItems(FXCollections.observableArrayList("Type1", "Type2", "Type3"));
 
-        // Initialize the demandes list
+        // Init demandes list
         demandesList = FXCollections.observableArrayList();
         demandesListView.setItems(demandesList);
 
-        // Show the Ajouter Demande form by default
+        // Show  Ajouter Demande form by default
         showAjouterDemandeForm();
     }
 
@@ -85,7 +85,7 @@ public class MyDocs {
             String demande = "Type: " + typeDocument + ", Email: " + emailDemandeur + ", Nom: " + nomDemandeur;
             demandesList.add(demande);
 
-            // Clear the form fields
+            // Clear fields
             typeDocumentComboBox.setValue(null);
             emailDemandeurField.clear();
             nomDemandeurField.clear();

@@ -1,31 +1,35 @@
+
 package tn.esprit.models;
 
-public class Utilisateur {
+import org.mindrot.jbcrypt.BCrypt;
+
+public abstract class Utilisateur {
     private int id_user;
     private String nom;
     private String prenom;
     private String email;
-    private String Mdp;
-    private String Role;
+    private int cin;
+    private String motDePasse;
+    private String role;
 
-    public Utilisateur() {
-    }
+    public Utilisateur() {}
 
-    public Utilisateur(String nom, String prenom, String email, String Mdp, String Role) {
-        this.nom = nom;
-        this.prenom = prenom;
-        this.email = email;
-        this.Mdp = Mdp;
-        this.Role = Role;
-    }
-
-    public Utilisateur(int id_user, String nom, String prenom, String email, String Mdp, String Role) {
+    public Utilisateur(int id_user, String nom, String prenom, String email, int cin, String motDePasse, String role) {
         this.id_user = id_user;
         this.nom = nom;
         this.prenom = prenom;
         this.email = email;
-        this.Mdp = Mdp;
-        this.Role = Role;
+        this.cin = cin;
+        this.motDePasse = hashPassword(motDePasse); // Hachage du mot de passe
+        this.role = role;
+    }
+
+    public Utilisateur(String nom, String prenom, String email, int cin, String motDePasse) {
+        this.nom = nom;
+        this.prenom = prenom;
+        this.email = email;
+        this.cin = cin;
+        this.motDePasse = hashPassword(motDePasse); // Hachage du mot de passe
     }
 
     public int getId_user() {
@@ -60,20 +64,33 @@ public class Utilisateur {
         this.email = email;
     }
 
-    public String getMdp() {
-        return Mdp;
+    public int getCin() {
+        return cin;
     }
 
-    public void setMdp(String Mdp) {
-        this.Mdp = Mdp;
+    public void setCin(int cin) {
+        this.cin = cin;
+    }
+
+    public String getMotDePasse() {
+        return motDePasse;
+    }
+
+    public void setMotDePasse(String motDePasse) {
+        this.motDePasse = hashPassword(motDePasse); // Hachage avant stockage
     }
 
     public String getRole() {
-        return Role;
+        return role;
     }
 
-    public void setRole(String Role) {
-        this.Role = Role;
+    public void setRole(String role) {
+        this.role = role;
+    }
+
+    // Hachage du mot de passe avec BCrypt
+    private String hashPassword(String plainTextPassword) {
+        return BCrypt.hashpw(plainTextPassword, BCrypt.gensalt(12));
     }
 
     @Override
@@ -83,8 +100,8 @@ public class Utilisateur {
                 ", nom='" + nom + '\'' +
                 ", prenom='" + prenom + '\'' +
                 ", email='" + email + '\'' +
-                ", Mdp='" + Mdp + '\'' +
-                ", Role='" + Role + '\'' +
-                "}\n";
+                ", cin=" + cin +
+                ", role=" + getRole() +
+                "}";
     }
 }

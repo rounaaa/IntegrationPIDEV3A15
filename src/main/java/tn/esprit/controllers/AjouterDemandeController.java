@@ -3,13 +3,13 @@ package tn.esprit.controllers;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.ListView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
+import javafx.stage.FileChooser;
 import tn.esprit.models.DemandeDocument;
 import tn.esprit.services.ServiceDemandeDocument;
 
+import java.io.File;
+import java.util.Comparator;
 import java.util.Date;
 
 public class AjouterDemandeController {
@@ -24,7 +24,7 @@ public class AjouterDemandeController {
     private ListView<DemandeDocument> demandeListView;
 
     @FXML
-    private TextField titreField;
+    private TextField titreDemandeField;
 
     @FXML
     private ComboBox<String> statusField;
@@ -33,13 +33,13 @@ public class AjouterDemandeController {
     private TextField descriptionField;
 
     @FXML
-    private ComboBox<String> categorieField;
+    private ComboBox<String> typeDocumentField;
 
     @FXML
-    private TextField auteurField;
+    private TextField nomDemandeurField;
 
     @FXML
-    private TextField pathField;
+    private TextField pieceJustifField;
 
     @FXML
     private Button handleAddDemande;
@@ -56,7 +56,7 @@ public class AjouterDemandeController {
         loadAllDemandes();
 
         // Set up sort functionality
-        sortComboBox.setItems(FXCollections.observableArrayList("Titre", "Statut", "Description", "Type", "Catégorie", "Auteur"));
+        sortComboBox.setItems(FXCollections.observableArrayList("Titre", "Statut", "Description", "Type", "Nom Demandeur", "Pièce Justificative"));
         sortComboBox.setOnAction(event -> sortDemandes(sortComboBox.getValue()));
 
         // Set up category list
@@ -65,8 +65,8 @@ public class AjouterDemandeController {
         // Set up status field
         statusField.setItems(FXCollections.observableArrayList("En cours de traitement", "Archivé", "Disponible", "Bloqué"));
 
-        // Set up categorie field
-        categorieField.setItems(FXCollections.observableArrayList("type1", "type2", "type3", "type4"));
+        // Set up type document field
+        typeDocumentField.setItems(FXCollections.observableArrayList("PDF", "Word", "Excel", "Autre"));
 
         handleAddDemande.setOnAction(event -> addDemande());
     }
@@ -77,39 +77,97 @@ public class AjouterDemandeController {
     }
 
     private void sortDemandes(String sortBy) {
-        // Implement sorting logic based on the selected sort criteria
+        switch (sortBy) {
+            case "Titre":
+                demandeList.sort(Comparator.comparing(DemandeDocument::getTitreDemande));
+                break;
+            case "Statut":
+                demandeList.sort(Comparator.comparing(DemandeDocument::getStatus));
+                break;
+            case "Description":
+                demandeList.sort(Comparator.comparing(DemandeDocument::getDescription));
+                break;
+            case "Type":
+                demandeList.sort(Comparator.comparing(DemandeDocument::getTypeDocument));
+                break;
+            case "Nom Demandeur":
+                demandeList.sort(Comparator.comparing(DemandeDocument::getNomDemandeur));
+                break;
+            case "Pièce Justificative":
+                demandeList.sort(Comparator.comparing(DemandeDocument::getPieceJustif));
+                break;
+        }
     }
 
     @FXML
     private void addDemande() {
-        String titre = titreField.getText();
+        String titreDemande = titreDemandeField.getText();
         String statut = statusField.getValue();
         String description = descriptionField.getText();
-        String categorie = categorieField.getValue();
-        String auteur = auteurField.getText();
-        String chemin = pathField.getText();
+        String typeDocument = typeDocumentField.getValue();
+        String nomDemandeur = nomDemandeurField.getText();
+        String pieceJustif = pieceJustifField.getText();
+
+        // Input validation
+        if (titreDemande.isEmpty() || statut == null || description.isEmpty() || typeDocument == null || nomDemandeur.isEmpty() || pieceJustif.isEmpty()) {
+            showAlert("Erreur", "Veuillez remplir tous les champs obligatoires.");
+            return;
+        }
 
         DemandeDocument demande = new DemandeDocument();
-        demande.setTitreDemande(titre);
+        demande.setTitreDemande(titreDemande);
         demande.setStatus(statut);
         demande.setDescription(description);
-        demande.setTypeDocument(categorie);
-        demande.setNomDemandeur(auteur);
-        demande.setPieceJustif(chemin);
-        demande.setDateDemande(new Date());
+        demande.setTypeDocument(typeDocument);
+        demande.setNomDemandeur(nomDemandeur);
+        demande.setPieceJustif(pieceJustif);
+        demande.setDate_Demande(new Date());
 
         serviceDemandeDocument.add(demande);
         loadAllDemandes();
+        clearForm();
     }
 
     @FXML
     private void handleBrowseFile() {
-        // Implement file browsing logic
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Sélectionner une pièce justificative");
+        File file = fileChooser.showOpenDialog(null);
+        if (file != null) {
+            pieceJustifField.setText(file.getAbsolutePath());
+        }
     }
 
     @FXML
     private void handleUpdateDemande() {
-        // Implement update demande logic
+        DemandeDocument selectedDemande = demandeListView.getSelectionModel().getSelectedItem();
+        if (selectedDemande != null) {
+            String titreDemande = titreDemandeField.getText();
+            String statut = statusField.getValue();
+            String description = descriptionField.getText();
+            String typeDocument = typeDocumentField.getValue();
+            String nomDemandeur = nomDemandeurField.getText();
+            String pieceJustif = pieceJustifField.getText();
+
+            // Input validation
+            if (titreDemande.isEmpty() || statut == null || description.isEmpty() || typeDocument == null || nomDemandeur.isEmpty() || pieceJustif.isEmpty()) {
+                showAlert("Erreur", "Veuillez remplir tous les champs obligatoires.");
+                return;
+            }
+
+            selectedDemande.setTitreDemande(titreDemande);
+            selectedDemande.setStatus(statut);
+            selectedDemande.setDescription(description);
+            selectedDemande.setTypeDocument(typeDocument);
+            selectedDemande.setNomDemandeur(nomDemandeur);
+            selectedDemande.setPieceJustif(pieceJustif);
+
+            serviceDemandeDocument.update(selectedDemande);
+            loadAllDemandes();
+            clearForm();
+        } else {
+            showAlert("Erreur", "Veuillez sélectionner une demande à modifier.");
+        }
     }
 
     @FXML
@@ -118,6 +176,25 @@ public class AjouterDemandeController {
         if (selectedDemande != null) {
             serviceDemandeDocument.delete(selectedDemande);
             loadAllDemandes();
+        } else {
+            showAlert("Erreur", "Veuillez sélectionner une demande à supprimer.");
         }
+    }
+
+    private void clearForm() {
+        titreDemandeField.clear();
+        statusField.setValue(null);
+        descriptionField.clear();
+        typeDocumentField.setValue(null);
+        nomDemandeurField.clear();
+        pieceJustifField.clear();
+    }
+
+    private void showAlert(String title, String message) {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle(title);
+        alert.setHeaderText(null);
+        alert.setContentText(message);
+        alert.showAndWait();
     }
 }

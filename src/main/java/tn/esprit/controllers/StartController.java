@@ -24,14 +24,14 @@ public class StartController {
     @FXML
     private void handleUserButton(ActionEvent event) {
         try {
-            // Load the new interface
+            // CALL UserDashboard.fxml
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/UserDashboard.fxml"));
             Parent root = loader.load();
 
-            // Get the current stage
+            // SET stage
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
 
-            // Set the new scene
+            // Set scene
             stage.setScene(new Scene(root));
             stage.show();
         } catch (IOException e) {

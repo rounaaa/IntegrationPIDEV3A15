@@ -45,12 +45,7 @@ public class UserDashboardController {
         searchField.textProperty().addListener((observable, oldValue, newValue) -> filterDocuments(newValue));
 
         // Set custom cell factory
-        documentListView.setCellFactory(new Callback<ListView<DemandeDocument>, ListCell<DemandeDocument>>() {
-            @Override
-            public ListCell<DemandeDocument> call(ListView<DemandeDocument> param) {
-                return new DemandeDocumentListCell();
-            }
-        });
+        documentListView.setCellFactory(param -> new DemandeDocumentListCell());
 
         ajouterDemandeButton.setOnAction(event -> handleAjouterDemande());
     }
@@ -76,11 +71,25 @@ public class UserDashboardController {
             Stage stage = (Stage) ajouterDemandeButton.getScene().getWindow();
             stage.setScene(new Scene(root));
         } catch (IOException e) {
+            System.err.println("Error loading AjouterDemande.fxml: " + e.getMessage());
             e.printStackTrace();
-            System.out.println("Error loading AjouterDemande.fxml: " + e.getMessage());
         } catch (Exception e) {
+            System.err.println("Unexpected error: " + e.getMessage());
             e.printStackTrace();
-            System.out.println("Unexpected error: " + e.getMessage());
+        }
+    }
+
+    // Custom ListCell
+    private static class DemandeDocumentListCell extends ListCell<DemandeDocument> {
+        @Override
+        protected void updateItem(DemandeDocument demande, boolean empty) {
+            super.updateItem(demande, empty);
+            if (empty || demande == null) {
+                setText(null);
+                setGraphic(null);
+            } else {
+                setText(demande.getTitreDemande() + " - " + demande.getStatus());
+            }
         }
     }
 }

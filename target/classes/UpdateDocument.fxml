@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.collections.FXCollections?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<?import java.lang.String?>
+<VBox spacing="10" xmlns="http://javafx.com/javafx/22.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tn.esprit.controllers.UpdateDocumentController">
+    <padding>
+        <Insets top="10" right="10" bottom="10" left="10"/>
+    </padding>
+    <Label text="Modifier Document" style="-fx-font-size: 18px; -fx-font-weight: bold;"/>
+    <Label text="Titre:"/>
+    <TextField fx:id="titreField" promptText="Entrez le titre"/>
+    <Label text="Statut:"/>
+    <ComboBox fx:id="statusField" promptText="Sélectionnez le statut">
+        <items>
+            <FXCollections fx:factory="observableArrayList">
+                <String fx:value="En cours de traitement"/>
+                <String fx:value="Archivé"/>
+                <String fx:value="Disponible"/>
+                <String fx:value="Bloqué"/>
+            </FXCollections>
+        </items>
+    </ComboBox>
+    <Label text="Description:"/>
+    <TextField fx:id="descriptionField" promptText="Entrez la description"/>
+    <Label text="Chemin:"/>
+    <HBox spacing="10">
+        <TextField fx:id="pathField" promptText="Entrez le chemin"/>
+        <Button text="Parcourir" onAction="#handleBrowseFile"/>
+    </HBox>
+    <Label text="Auteur:"/>
+    <TextField fx:id="auteurField" promptText="Entrez l'auteur"/>
+    <Button text="Mettre à jour" onAction="#handleUpdateDocument"/>
+</VBox>

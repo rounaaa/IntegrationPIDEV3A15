@@ -27,7 +27,7 @@ public class MainFX extends Application {
             primaryStage.setScene(scene);
             primaryStage.setTitle("BlediSmart");
 
-            // Set the application icon
+            // icon
             Image icon = new Image(getClass().getResourceAsStream("/img/Logo.png"));
             primaryStage.getIcons().add(icon);
 

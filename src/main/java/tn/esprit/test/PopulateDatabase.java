@@ -1,4 +1,4 @@
-package tn.esprit.test;
+/*package tn.esprit.test;
 
 import com.github.javafaker.Faker;
 import tn.esprit.models.DemandeDocument;
@@ -47,3 +47,4 @@ public class PopulateDatabase {
         System.out.println("20 demandes ont été ajoutées avec succès.");
     }
 }
+*/

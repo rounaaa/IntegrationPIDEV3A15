@@ -21,7 +21,6 @@ import java.util.regex.Pattern;
 
 public class AjouterDocController {
 
-    // Champs de formulaire
     @FXML private TextField titreField;
     @FXML private ComboBox<String> statusField;
     @FXML private TextField descriptionField;
@@ -29,33 +28,42 @@ public class AjouterDocController {
     @FXML private ComboBox<String> categorieField;
     @FXML private TextField auteurField;
 
-    // ListView for displaying categories and documents
     @FXML private ListView<String> categoryListView;
     @FXML private ListView<Document> documentListView;
 
-    // ComboBox for sorting
     @FXML private ComboBox<String> sortComboBox;
 
-    // Service pour interagir avec la base de données
-    ServiceDocument serviceDocument = new ServiceDocument();
+    //Instance de connexion
+    private final ServiceDocument serviceDocument = new ServiceDocument();
 
-    // Méthode d'initialisation
+    // Init
     @FXML
     public void initialize() {
+        // Load categories
         loadCategories();
+
+        // listener to categoryListView
         categoryListView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue != null) {
                 loadDocumentsByCategory(newValue);
             }
         });
+
         documentListView.setCellFactory(param -> new DocumentListCell());
+
         addContextMenuToDocumentListView();
+
         initializeSortComboBox();
+
         initializeStatusComboBox();
+
         initializeCategorieComboBox();
+
+        // Load documents
+        handleRefreshList();
     }
 
-    // Load categories into the categoryListView
+    // Load categories
     private void loadCategories() {
         List<String> categories = serviceDocument.getAllCategories();
         ObservableList<String> sortedCategories = FXCollections.observableArrayList(categories);
@@ -69,7 +77,7 @@ public class AjouterDocController {
         documentListView.getItems().setAll(documents);
     }
 
-    // Initialize the sortComboBox with sorting options
+    // Init sortComboBox
     private void initializeSortComboBox() {
         sortComboBox.setItems(FXCollections.observableArrayList("Titre", "Statut", "Description", "Type", "Catégorie", "Auteur"));
         sortComboBox.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
@@ -79,17 +87,17 @@ public class AjouterDocController {
         });
     }
 
-    // Initialize the statusComboBox with status options
+    // Init statusComboBox
     private void initializeStatusComboBox() {
         statusField.setItems(FXCollections.observableArrayList("En cours de traitement", "Archivé", "Disponible", "Bloqué"));
     }
 
-    // Initialize the categorieComboBox with category options
+    // Init categorieComboBox
     private void initializeCategorieComboBox() {
         categorieField.setItems(FXCollections.observableArrayList("Categorie1", "Categorie2", "Categorie3", "Categorie4"));
     }
 
-    // Sort documents based on the selected attribute
+    // Sort documents
     private void sortDocuments(String attribute) {
         Comparator<Document> comparator;
         switch (attribute) {
@@ -117,7 +125,7 @@ public class AjouterDocController {
         documentListView.getItems().sort(comparator);
     }
 
-    // Ajouter un document
+    // Ajout
     @FXML
     private void handleAddDocument() {
         if (validateFields()) {
@@ -125,7 +133,7 @@ public class AjouterDocController {
                     titreField.getText(),
                     statusField.getValue(),
                     descriptionField.getText(),
-                    getFileExtension(pathField.getText()), // Auto-generate type from file extension
+                    getFileExtension(pathField.getText()),
                     new Date(), // Date de création
                     new Date(), // Date de modification
                     pathField.getText(),
@@ -136,15 +144,17 @@ public class AjouterDocController {
             showAlert("Succès", "Document ajouté avec succès !");
             clearFields();
             handleRefreshList();
-            loadCategories(); // Refresh categories after adding a document
+            loadCategories();
         }
     }
 
+    // MAJ
     @FXML
     private void handleUpdateDocument() {
         Document selectedDocument = documentListView.getSelectionModel().getSelectedItem();
         if (selectedDocument != null) {
             try {
+                // call UpdateDocument.fxml
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("/UpdateDocument.fxml"));
                 Parent root = loader.load();
 
@@ -152,19 +162,25 @@ public class AjouterDocController {
                 controller.setDocument(selectedDocument);
                 controller.setServiceDocument(serviceDocument);
 
+                // New Stage MODIFCATION
                 Stage stage = new Stage();
                 stage.setTitle("Modifier Document");
                 stage.setScene(new Scene(root));
-                controller.setStage(stage);
                 stage.showAndWait();
 
+                // Refresh the document list
                 handleRefreshList();
             } catch (IOException e) {
                 e.printStackTrace();
+                showAlert("Erreur", "Impossible de charger le formulaire de modification.");
             }
+        } else {
+            showAlert("Erreur", "Veuillez sélectionner un document à modifier.");
         }
     }
-    // Supprimer un document
+
+
+    // Supprimer
     @FXML
     private void handleDeleteDocument() {
         Document selectedDocument = documentListView.getSelectionModel().getSelectedItem();
@@ -177,7 +193,8 @@ public class AjouterDocController {
         }
     }
 
-    // Rafraîchir la liste des documents
+
+    // Refresh list documents
     @FXML
     private void handleRefreshList() {
         documentListView.getItems().clear();
@@ -186,7 +203,7 @@ public class AjouterDocController {
         }
     }
 
-    // Parcourir un fichier
+    // Browse
     @FXML
     private void handleBrowseFile() {
         FileChooser fileChooser = new FileChooser();
@@ -199,7 +216,8 @@ public class AjouterDocController {
             System.out.println("File type: " + fileType);
         }
     }
-    // Add context menu to documentListView for sorting
+
+    //SORT context menu for documentListView
     private void addContextMenuToDocumentListView() {
         ContextMenu contextMenu = new ContextMenu();
 
@@ -225,7 +243,7 @@ public class AjouterDocController {
         alert.showAndWait();
     }
 
-    // Helper method to clear all input fields
+    // clear fields
     private void clearFields() {
         titreField.clear();
         statusField.getSelectionModel().clearSelection();
@@ -235,7 +253,7 @@ public class AjouterDocController {
         auteurField.clear();
     }
 
-    // Helper method to validate input fields
+    // Validation input fields
     private boolean validateFields() {
         Pattern pattern = Pattern.compile("^[A-Za-z].*");
         if (!pattern.matcher(titreField.getText()).matches()) {
@@ -249,7 +267,7 @@ public class AjouterDocController {
         return true;
     }
 
-    // Helper method to get file extension
+    // GET extension
     private String getFileExtension(String fileName) {
         if (fileName == null || fileName.isEmpty()) {
             return "";

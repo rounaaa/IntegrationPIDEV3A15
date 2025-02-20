@@ -17,16 +17,27 @@ public class ServiceDemandeDocument implements IService<DemandeDocument> {
 
     @Override
     public void add(DemandeDocument demandeDocument) {
-        String qry = "INSERT INTO `demande_document`(`id_Document`, `status`, `Date_Demande`, `id_user`, `Commentaire`) VALUES (?,?,?,?,?)";
+        String qry = "INSERT INTO `demande_document`(`id_Document`, `status`, `Date_Demande`, `id_user`, `Commentaire`, `titreDemande`, `description`, `typeDocument`, `nomDemandeur`, `pieceJustif`) VALUES (?,?,?,?,?,?,?,?,?,?)";
         try {
-            PreparedStatement pstm = cnx.prepareStatement(qry);
+            PreparedStatement pstm = cnx.prepareStatement(qry, Statement.RETURN_GENERATED_KEYS);
             pstm.setInt(1, demandeDocument.getId_Document());
             pstm.setString(2, demandeDocument.getStatus());
             pstm.setDate(3, new java.sql.Date(demandeDocument.getDate_Demande().getTime()));
             pstm.setInt(4, demandeDocument.getId_user());
             pstm.setString(5, demandeDocument.getCommentaire());
+            pstm.setString(6, demandeDocument.getTitreDemande());
+            pstm.setString(7, demandeDocument.getDescription());
+            pstm.setString(8, demandeDocument.getTypeDocument());
+            pstm.setString(9, demandeDocument.getNomDemandeur());
+            pstm.setString(10, demandeDocument.getPieceJustif());
 
             pstm.executeUpdate();
+
+            // Retrieve the generated ID
+            ResultSet rs = pstm.getGeneratedKeys();
+            if (rs.next()) {
+                demandeDocument.setId_Demande(rs.getInt(1)); // Update the demande ID
+            }
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
@@ -49,6 +60,11 @@ public class ServiceDemandeDocument implements IService<DemandeDocument> {
                 d.setDate_Demande(rs.getDate("Date_Demande"));
                 d.setId_user(rs.getInt("id_user"));
                 d.setCommentaire(rs.getString("Commentaire"));
+                d.setTitreDemande(rs.getString("titreDemande"));
+                d.setDescription(rs.getString("description"));
+                d.setTypeDocument(rs.getString("typeDocument"));
+                d.setNomDemandeur(rs.getString("nomDemandeur"));
+                d.setPieceJustif(rs.getString("pieceJustif"));
 
                 demandes.add(d);
             }
@@ -61,7 +77,7 @@ public class ServiceDemandeDocument implements IService<DemandeDocument> {
 
     @Override
     public void update(DemandeDocument demandeDocument) {
-        String qry = "UPDATE `demande_document` SET `id_Document`=?, `status`=?, `Date_Demande`=?, `id_user`=?, `Commentaire`=? WHERE `id_Demande`=?";
+        String qry = "UPDATE `demande_document` SET `id_Document`=?, `status`=?, `Date_Demande`=?, `id_user`=?, `Commentaire`=?, `titreDemande`=?, `description`=?, `typeDocument`=?, `nomDemandeur`=?, `pieceJustif`=? WHERE `id_Demande`=?";
         try {
             PreparedStatement pstm = cnx.prepareStatement(qry);
             pstm.setInt(1, demandeDocument.getId_Document());
@@ -69,7 +85,12 @@ public class ServiceDemandeDocument implements IService<DemandeDocument> {
             pstm.setDate(3, new java.sql.Date(demandeDocument.getDate_Demande().getTime()));
             pstm.setInt(4, demandeDocument.getId_user());
             pstm.setString(5, demandeDocument.getCommentaire());
-            pstm.setInt(6, demandeDocument.getId_Demande());
+            pstm.setString(6, demandeDocument.getTitreDemande());
+            pstm.setString(7, demandeDocument.getDescription());
+            pstm.setString(8, demandeDocument.getTypeDocument());
+            pstm.setString(9, demandeDocument.getNomDemandeur());
+            pstm.setString(10, demandeDocument.getPieceJustif());
+            pstm.setInt(11, demandeDocument.getId_Demande());
 
             pstm.executeUpdate();
         } catch (SQLException e) {
