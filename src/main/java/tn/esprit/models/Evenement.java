@@ -6,27 +6,30 @@ public class Evenement {
     private int id_evenement;
     private String nom_evenement;
     private String description;
-    private LocalDateTime date_debut;
-    private LocalDateTime date_fin;
+    private LocalDateTime date;
     private String lieu;
     private String statut; // Peut être "actif", "annulé" ou "terminé"
     private int capacite_max;
     private String image;
-    private int id_user; // Référence à l'utilisateur organisateur
+    private Utilisateur utilisateur; // Référence à l'utilisateur organisateur (remplace 'User' par 'Utilisateur')
 
     public Evenement() {}
 
-    public Evenement(String nom_evenement, String description, LocalDateTime date_debut, LocalDateTime date_fin,
-                     String lieu, String statut, int capacite_max, String image, int id_user) {
+    // Constructeur modifié pour accepter une instance de Utilisateur
+    public Evenement(String nom_evenement, String description, LocalDateTime date,
+                     String lieu, String statut, int capacite_max, String image, Utilisateur utilisateur) {
         this.nom_evenement = nom_evenement;
         this.description = description;
-        this.date_debut = date_debut;
-        this.date_fin = date_fin;
+        this.date = date;
         this.lieu = lieu;
         this.statut = statut;
         this.capacite_max = capacite_max;
         this.image = image;
-        this.id_user = id_user;
+        this.utilisateur = utilisateur; // Passer l'instance de Utilisateur
+    }
+
+    public Evenement(String nom, String description, LocalDateTime date, String lieu, String statut, int capacite, String image, int idUser) {
+
     }
 
     public int getId_evenement() {
@@ -53,20 +56,12 @@ public class Evenement {
         this.description = description;
     }
 
-    public LocalDateTime getDate_debut() {
-        return date_debut;
+    public LocalDateTime getDate() {
+        return date;
     }
 
-    public void setDate_debut(LocalDateTime date_debut) {
-        this.date_debut = date_debut;
-    }
-
-    public LocalDateTime getDate_fin() {
-        return date_fin;
-    }
-
-    public void setDate_fin(LocalDateTime date_fin) {
-        this.date_fin = date_fin;
+    public void setDate(LocalDateTime date) {
+        this.date = date;
     }
 
     public String getLieu() {
@@ -101,12 +96,12 @@ public class Evenement {
         this.image = image;
     }
 
-    public int getId_user() {
-        return id_user;
+    public Utilisateur getUtilisateur() {
+        return utilisateur; // Retourner l'instance de Utilisateur
     }
 
-    public void setId_user(int id_user) {
-        this.id_user = id_user;
+    public void setUtilisateur(Utilisateur utilisateur) {
+        this.utilisateur = utilisateur; // Assigner l'instance de Utilisateur
     }
 
     @Override
@@ -115,13 +110,12 @@ public class Evenement {
                 "id_evenement=" + id_evenement +
                 ", nom_evenement='" + nom_evenement + '\'' +
                 ", description='" + description + '\'' +
-                ", date_debut=" + date_debut +
-                ", date_fin=" + date_fin +
+                ", date=" + date +
                 ", lieu='" + lieu + '\'' +
                 ", statut='" + statut + '\'' +
                 ", capacite_max=" + capacite_max +
                 ", image='" + image + '\'' +
-                ", id_user=" + id_user +
+                ", utilisateur=" + utilisateur + // Afficher l'utilisateur
                 "}\n";
     }
 }

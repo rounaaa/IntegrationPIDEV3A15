@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.collections.FXCollections?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane xmlns:fx="http://javafx.com/fxml/1" fx:controller="tn.esprit.controllers.gestionEvenement">
+    <children>
+        <VBox spacing="15" alignment="CENTER" AnchorPane.topAnchor="20" AnchorPane.leftAnchor="20" AnchorPane.rightAnchor="20" AnchorPane.bottomAnchor="20">
+            <!-- Titre principal -->
+            <Label text="Gestion des Événements" style="-fx-font-size: 22px; -fx-font-weight: bold; -fx-text-fill: #2b781a;"/>
+
+            <!-- Zone de saisie organisée en grille -->
+            <GridPane hgap="10" vgap="10">
+                <padding>
+                    <Insets top="10" right="10" bottom="10" left="10"/>
+                </padding>
+                <columnConstraints>
+                    <ColumnConstraints percentWidth="30"/>
+                    <ColumnConstraints percentWidth="70"/>
+                </columnConstraints>
+                <rowConstraints>
+                    <RowConstraints minHeight="30"/>
+                    <RowConstraints minHeight="60"/>
+                    <RowConstraints minHeight="30"/>
+                    <RowConstraints minHeight="30"/>
+                    <RowConstraints minHeight="30"/>
+                    <RowConstraints minHeight="30"/>
+                    <RowConstraints minHeight="30"/>
+                    <RowConstraints minHeight="30"/>
+                </rowConstraints>
+
+                <!-- Nom de l'événement -->
+                <Label text="Nom:" GridPane.columnIndex="0" GridPane.rowIndex="0"/>
+                <TextField fx:id="tfNomEvenement" promptText="Nom de l'événement" GridPane.columnIndex="1" GridPane.rowIndex="0"/>
+
+                <!-- Description -->
+                <Label text="Description:" GridPane.columnIndex="0" GridPane.rowIndex="1"/>
+                <TextArea fx:id="tfDescription" promptText="Description" prefRowCount="3" GridPane.columnIndex="1" GridPane.rowIndex="1"/>
+
+                <!-- Date -->
+                <Label text="Date:" GridPane.columnIndex="0" GridPane.rowIndex="2"/>
+                <DatePicker fx:id="dpDate" GridPane.columnIndex="1" GridPane.rowIndex="2"/>
+
+                <!-- Lieu -->
+                <Label text="Lieu:" GridPane.columnIndex="0" GridPane.rowIndex="3"/>
+                <TextField fx:id="tfLieu" promptText="Lieu" GridPane.columnIndex="1" GridPane.rowIndex="3"/>
+
+                <!-- Statut -->
+                <Label text="Statut:" GridPane.columnIndex="0" GridPane.rowIndex="4"/>
+                <ComboBox fx:id="cbStatut" promptText="Statut" GridPane.columnIndex="1" GridPane.rowIndex="4"/>
+
+                <!-- Capacité -->
+                <Label text="Capacité Max:" GridPane.columnIndex="0" GridPane.rowIndex="5"/>
+                <TextField fx:id="tfCapacite" promptText="Capacité Max" GridPane.columnIndex="1" GridPane.rowIndex="5"/>
+
+                <!-- Image URL -->
+                <Label text="Image URL:" GridPane.columnIndex="0" GridPane.rowIndex="6"/>
+                <TextField fx:id="tfImage" promptText="Image URL" GridPane.columnIndex="1" GridPane.rowIndex="6"/>
+
+                <!-- ID Utilisateur -->
+                <Label text="ID Utilisateur:" GridPane.columnIndex="0" GridPane.rowIndex="7"/>
+                <TextField fx:id="tfIdUser" promptText="ID Utilisateur" GridPane.columnIndex="1" GridPane.rowIndex="7"/>
+            </GridPane>
+
+            <!-- Boutons d'action -->
+            <HBox spacing="15" alignment="CENTER">
+                <Button text="Ajouter" onAction="#ajouterEvenement" style="-fx-background-color: #2b781a; -fx-text-fill: white;"/>
+                <Button text="Modifier" onAction="#modifierEvenement" style="-fx-background-color: #2b781a; -fx-text-fill: white;"/>
+                <Button text="Supprimer" onAction="#supprimerEvenement" style="-fx-background-color: #2b781a; -fx-text-fill: white;"/>
+                <Button text="Gérer les Participations" onAction="#ouvrirParticipation" style="-fx-background-color: #0073e6; -fx-text-fill: white;"/>
+            </HBox>
+
+            <!-- Label pour les messages/résultats -->
+            <Label fx:id="lblResult" text="Résultat..." style="-fx-text-fill: #2b781a; -fx-font-size: 14px;"/>
+
+            <!-- Liste des événements -->
+            <ListView fx:id="lvEvenements" prefHeight="200" prefWidth="400"/>
+        </VBox>
+    </children>
+</AnchorPane>
