@@ -2,6 +2,7 @@ package services;
 
 import models.Response;
 import utils.MyDatabase;
+import utils.Mailing;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -20,7 +21,9 @@ public class ResponseService {
             stmt.setInt(1, response.getIdReclamation());
             stmt.setString(2, response.getResponseText());
             stmt.executeUpdate();
-            System.out.println("✅ Réponse ajoutée avec succès !");
+            System.out.println("Réponse ajoutée avec succès !");
+
+
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -31,7 +34,7 @@ public class ResponseService {
         try (PreparedStatement stmt = conn.prepareStatement(query)) {
             stmt.setInt(1, reclamationId);
             stmt.executeUpdate();
-            System.out.println("✅ Réponse supprimée !");
+            System.out.println("Réponse supprimée !");
         } catch (SQLException e) {
             e.printStackTrace();
         }

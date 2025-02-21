@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane xmlns="http://javafx.com/javafx/8.0.171"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="controllers.ReclamationController"
+            stylesheets="@styles/ajouterReclamationStyle.css , @styles/sidebar.css"
+            prefHeight="720" prefWidth="1080">
+
+    <left>
+        <VBox fx:id="sidebarContainer" styleClass="sidebar">
+            <fx:include source="components/sidebar.fxml"/>
+        </VBox>
+    </left>
+
+    <center>
+        <VBox fx:id="formContainer" spacing="15" maxWidth="500" alignment="CENTER" styleClass="form-container">
+            <Label fx:id="lblTitle" text="Ajouter une Réclamation" styleClass="title-label"/>
+
+            <HBox spacing="10" alignment="CENTER_LEFT" styleClass="form-field">
+                <Label text="Type de Réclamation:" styleClass="form-label"/>
+                <ComboBox fx:id="cmbType" promptText="Veuillez sélectionner..." styleClass="combo-box"/>
+            </HBox>
+
+            <HBox spacing="15" alignment="CENTER_LEFT" styleClass="form-field">
+                <Label text="Date de Disponibilité:" styleClass="form-label"/>
+                <Label fx:id="lblDate" text="--/--/----" styleClass="date-time-label"/>
+                <Label fx:id="lblTime" text="--:--:--" styleClass="date-time-label"/>
+            </HBox>
+
+            <HBox spacing="10" alignment="CENTER_LEFT" styleClass="form-field">
+                <Button text="📂 Importer une image" fx:id="btnChooseImage" onAction="#chooseImage" styleClass="image-button"/>
+                <ImageView fx:id="imagePreview" fitWidth="150" fitHeight="90" styleClass="image-preview"/>
+            </HBox>
+            <HBox spacing="10">
+                <Label text="Cité :" style="-fx-font-weight: bold;" />
+                <TextField fx:id="txtCite" promptText="Entrez la cité..." />
+            </HBox>
+
+
+            <HBox spacing="8" alignment="CENTER_LEFT" styleClass="form-field">
+                <Label text="✍️" styleClass="emoji-label"/>
+                <Label text="Describe your problem in a max 20 words" styleClass="description-label"/>
+            </HBox>
+
+            <VBox spacing="5" alignment="CENTER_LEFT" styleClass="form-field">
+                <Label text="Description" styleClass="form-label"/>
+                <TextArea fx:id="txtDescription" promptText="Enter your description here (max 20 words)" wrapText="true"
+                          onKeyTyped="#validateDescription" styleClass="text-area"/>
+            </VBox>
+
+            <Label text="[reCAPTCHA]" styleClass="recaptcha-placeholder"/>
+
+            <Button fx:id="btnAjouter" text="✅ Envoyer" onAction="#ajouterReclamation" styleClass="submit-button"/>
+        </VBox>
+    </center>
+</BorderPane>

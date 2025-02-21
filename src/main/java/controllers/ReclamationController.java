@@ -103,7 +103,7 @@ public class ReclamationController {
 
     @FXML
     public void validateDescription() {
-        String text = txtDescription.getText(); // Retirez le .trim() ici
+        String text = txtDescription.getText();
 
         String[] bannedWords = {"badword", "test", "bip"};
         for (String bannedWord : bannedWords) {
@@ -131,7 +131,7 @@ public class ReclamationController {
             return;
 
         }
-        if(description.split("\\s+").length < 1) {
+        if(description.split("\\s+").length < 2) {
             showAlert(Alert.AlertType.ERROR,"Erreur", "Veuillez remplir tous les champs Votre description doit être de 2 mots  minimum !");
         return;
         }

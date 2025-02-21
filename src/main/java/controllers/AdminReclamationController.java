@@ -54,9 +54,6 @@ public class AdminReclamationController {
                             HBox row = new HBox(10);
                             row.setStyle("-fx-padding: 8px; -fx-border-color: #6fb862; -fx-border-width: 0 0 1 0; -fx-background-color: #aed699;");
 
-                            Label id = new Label(String.valueOf(reclamation.getId()));
-                            id.setPrefWidth(50);
-
                             Label user = new Label(reclamation.getUtilisateur().getNom());
                             user.setPrefWidth(150);
 
@@ -76,7 +73,7 @@ public class AdminReclamationController {
                             Label response = new Label(responseText);
                             response.setPrefWidth(200);
 
-                            row.getChildren().addAll(id, user, type, descBox, status, response);
+                            row.getChildren().addAll( user, type, descBox, status, response);
                             setGraphic(row);
                         }
 

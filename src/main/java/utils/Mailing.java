@@ -14,8 +14,8 @@ public class Mailing {
         props.put("mail.smtp.auth", "true");
         props.put("mail.smtp.starttls.enable", "true");
 
-        String username = "my outlook";
-        String password = "password";
+        String username = "May.salem@esprit.tn";
+        String password = "Dridijihed2511";
 
         Session session = Session.getInstance(props, new javax.mail.Authenticator() {
             protected PasswordAuthentication getPasswordAuthentication() {

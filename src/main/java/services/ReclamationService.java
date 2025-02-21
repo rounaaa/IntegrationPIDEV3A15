@@ -33,7 +33,7 @@ public class ReclamationService {
             stmt.setInt(6, reclamation.getUtilisateur().getIdUser());
 
             stmt.executeUpdate();
-            System.out.println("✅ Réclamation ajoutée avec succès !");
+            System.out.println("Réclamation ajoutée avec succès !");
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -49,7 +49,7 @@ public class ReclamationService {
             public void run() {
                 modifierStatut(reclamationId, ReclamationStatus.IN_PROGRESS);
             }
-        }, 20 * 1000);
+        }, 9 * 1000);
     }
 
     public void modifierStatut(int id, ReclamationStatus newStatus) {
@@ -59,7 +59,7 @@ public class ReclamationService {
             stmt.setString(1, newStatus.name());
             stmt.setInt(2, id);
             stmt.executeUpdate();
-            System.out.println("✅ Réclamation mise à jour: " + newStatus);
+            System.out.println(" Réclamation mise à jour: " + newStatus);
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -126,7 +126,7 @@ public class ReclamationService {
             stmt.setString(1, newStatus.name());
             stmt.setInt(2, id);
             stmt.executeUpdate();
-            System.out.println("✅ Réclamation mise à jour: " + newStatus);
+            System.out.println("Réclamation mise à jour: " + newStatus);
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -180,7 +180,7 @@ public class ReclamationService {
         try (PreparedStatement stmt = conn.prepareStatement(query)) {
             stmt.setInt(1, id);
             stmt.executeUpdate();
-            System.out.println("✅ Réclamation supprimée !");
+            System.out.println("Réclamation supprimée !");
         } catch (SQLException e) {
             e.printStackTrace();
         }

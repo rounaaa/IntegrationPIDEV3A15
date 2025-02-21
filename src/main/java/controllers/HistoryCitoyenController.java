@@ -60,7 +60,7 @@ public class HistoryCitoyenController {
         editButton.setDisable(!(reclamation.getStatus() == ReclamationStatus.PENDING || reclamation.getStatus() == ReclamationStatus.IN_PROGRESS));
         editButton.setOnAction(event -> openEditWindow(reclamation));
 
-        // ✅ NEW: Delete Button
+
         Button deleteButton = new Button("🗑️ Supprimer");
         deleteButton.getStyleClass().add("delete-button");
         deleteButton.setOnAction(event -> confirmDelete(reclamation));
@@ -101,7 +101,7 @@ public class HistoryCitoyenController {
             if (response == confirmButton) {
                 reclamationService.supprimerReclamation(reclamation.getId());
                 loadReclamationHistory();
-                System.out.println("✅ Réclamation supprimée !");
+                System.out.println("Réclamation supprimée !");
             }
         });
     }

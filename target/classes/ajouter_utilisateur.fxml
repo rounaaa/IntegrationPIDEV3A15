@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox prefHeight="400.0" prefWidth="600.0"  xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.UtilisateurController">
+
+    <children>
+        <VBox spacing="10" alignment="CENTER" prefWidth="400" prefHeight="450">
+            <padding>
+                <Insets top="20" right="20" bottom="20" left="20"/>
+            </padding>
+
+            <Label text="Ajouter Utilisateur" style="-fx-font-size: 18px; -fx-font-weight: bold;"/>
+
+            <TextField fx:id="txtNom" promptText="Nom"/>
+            <TextField fx:id="txtPrenom" promptText="Prénom"/>
+            <TextField fx:id="txtEmail" promptText="Email"/>
+            <TextField fx:id="txtCin" promptText="CIN"/>
+            <PasswordField fx:id="txtMotDePasse" promptText="Mot de Passe"/>
+            <TextField fx:id="txtRole" promptText="Rôle (Admin/citoyen)"/>
+
+            <Button fx:id="btnAjouterUtilisateur" text="Ajouter" onAction="#ajouterUtilisateur" style="-fx-background-color: #13A5F4; -fx-text-fill: white;"/>
+        </VBox>
+    </children>
+</VBox>
