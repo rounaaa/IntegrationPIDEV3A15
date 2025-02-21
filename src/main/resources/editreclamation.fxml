@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane xmlns="http://javafx.com/javafx/8.0.171"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="controllers.EditReclamationController"
+            stylesheets="@styles/editreclamation.css"
+            prefHeight="400" prefWidth="600">
+
+    <center>
+        <VBox spacing="15" alignment="CENTER" styleClass="form-container">
+            <Label text="✏️ Modifier la Réclamation" styleClass="modal-title"/>
+
+            <HBox spacing="10" alignment="CENTER_LEFT" styleClass="form-field">
+                <Label text="🛠 Type de Réclamation:" styleClass="form-label"/>
+                <ComboBox fx:id="cmbEditType" promptText="Sélectionner un type..." styleClass="combo-box"/>
+            </HBox>
+
+            <VBox spacing="5" alignment="CENTER_LEFT" styleClass="form-field">
+                <Label text="📄 Description" styleClass="form-label"/>
+                <TextArea fx:id="txtEditDescription" promptText="Modifier la description ici..." wrapText="true" styleClass="modal-textarea"/>
+            </VBox>
+
+            <HBox spacing="15" alignment="CENTER">
+                <Button text="✅ Enregistrer" fx:id="btnSaveEdit" onAction="#saveEditedReclamation" styleClass="modal-save-button"/>
+                <Button text="❌ Annuler" fx:id="btnCancelEdit" onAction="#closeWindow" styleClass="modal-cancel-button"/>
+            </HBox>
+        </VBox>
+    </center>
+</BorderPane>

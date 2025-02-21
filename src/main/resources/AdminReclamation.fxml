@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<BorderPane prefHeight="720" prefWidth="1080" stylesheets="@styles/adminReclamationStyle.css , @styles/sidebar.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.AdminReclamationController">
+
+    <left>
+        <VBox fx:id="sidebarContainer" styleClass="sidebar">
+            <fx:include source="components/sidebar.fxml" />
+        </VBox>
+    </left>
+
+    <center>
+        <VBox alignment="CENTER" spacing="20" styleClass="form-container">
+            <Label styleClass="title-label" text="Gestion des Réclamations" />
+
+            <HBox alignment="CENTER" spacing="10" styleClass="list-header">
+                <Label prefWidth="50" styleClass="header-label" text="ID" />
+                <Label prefWidth="150" styleClass="header-label" text="Utilisateur" />
+                <Label prefWidth="120" styleClass="header-label" text="Type" />
+                <Label prefWidth="250" styleClass="header-label" text="Description" />
+                <Label prefWidth="100" styleClass="header-label" text="Statut" />
+                <Label prefWidth="200" styleClass="header-label" text="Réponse" />
+            </HBox>
+
+            <ListView fx:id="listReclamations" styleClass="styled-list-view" />
+
+            <HBox alignment="CENTER_LEFT" spacing="10" styleClass="form-field">
+                <Label styleClass="form-label" text="✉️ Réponse:" />
+                <TextArea fx:id="txtReply" promptText="Entrez votre réponse ici..." styleClass="text-area" wrapText="true" />
+
+                <ComboBox fx:id="statusFilter" onAction="#refreshList"
+                          style="-fx-background-color: #7aa35e; -fx-text-fill: white; -fx-font-weight: bold;
+           -fx-border-color: #45781b; -fx-border-radius: 5px; -fx-background-radius: 5px;" />
+
+            </HBox>
+
+            <HBox alignment="CENTER" spacing="15">
+                <Button fx:id="btnReply" onAction="#replyReclamation" styleClass="submit-button" text="✅ Répondre" />
+                <Button fx:id="btnDelete" onAction="#deleteReply" styleClass="delete-button" text="🗑️ Supprimer" />
+
+            </HBox>
+        </VBox>
+    </center>
+</BorderPane>

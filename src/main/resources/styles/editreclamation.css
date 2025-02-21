@@ -1,0 +1,73 @@
+/* General background */
+.form-container {
+    -fx-background-color: #E8F5E9; /* Light green background */
+    -fx-padding: 20;
+    -fx-border-radius: 10;
+    -fx-border-color: #388E3C; /* Darker green border */
+    -fx-border-width: 2;
+}
+
+/* Title */
+.modal-title {
+    -fx-font-size: 20px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #2E7D32; /* Dark green */
+}
+
+/* Labels */
+.form-label {
+    -fx-font-size: 14px;
+    -fx-text-fill: #1B5E20; /* Darker green */
+    -fx-font-weight: bold;
+}
+
+/* ComboBox */
+.combo-box {
+    -fx-pref-width: 200px;
+    -fx-background-color: #C8E6C9; /* Light green */
+    -fx-border-color: #388E3C;
+    -fx-border-radius: 5;
+    -fx-padding: 5;
+}
+
+/* TextArea */
+.modal-textarea {
+    -fx-pref-width: 300px;
+    -fx-pref-height: 100px;
+    -fx-background-color: #C8E6C9; /* Light green */
+    -fx-border-color: #388E3C;
+    -fx-border-radius: 5;
+    -fx-padding: 5;
+}
+
+/* Buttons */
+.modal-save-button {
+    -fx-background-color: #4CAF50; /* Green */
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-border-radius: 5;
+    -fx-padding: 10 20;
+    -fx-font-size: 14px;
+}
+
+.modal-save-button:hover {
+    -fx-background-color: #388E3C; /* Darker green */
+}
+
+.modal-cancel-button {
+    -fx-background-color: #F44336; /* Red */
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-border-radius: 5;
+    -fx-padding: 10 20;
+    -fx-font-size: 14px;
+}
+
+.modal-cancel-button:hover {
+    -fx-background-color: #D32F2F; /* Darker red */
+}
+
+/* HBox alignment */
+.form-field {
+    -fx-spacing: 10;
+}

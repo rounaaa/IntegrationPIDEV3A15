@@ -1,0 +1,84 @@
+.root {
+    -fx-background-color: #F4F6F7;
+    -fx-font-family: "Arial";
+}
+
+.title-label {
+    -fx-font-size: 24px;
+    -fx-text-fill: #2C3E50;
+    -fx-font-weight: bold;
+    -fx-padding: 10px 0;
+}
+
+.form-container {
+    -fx-background-color: #FFFFFF;
+    -fx-padding: 20px;
+    -fx-border-radius: 10px;
+    -fx-border-color: #244a08;
+    -fx-border-width: 2px;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.2), 10, 0, 0, 4);
+}
+
+.list-header {
+    -fx-background-color: #0b7511;
+    -fx-padding: 10px;
+    -fx-border-radius: 5px;
+}
+
+.header-label {
+    -fx-font-size: 14px;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+}
+
+.styled-list-view {
+    -fx-border-color: #0b571a;
+    -fx-border-radius: 8px;
+    -fx-background-color: #ECF0F1;
+    -fx-padding: 10px;
+}
+
+.text-area {
+    -fx-background-color: #FFFFFF;
+    -fx-border-color: #0b710f;
+    -fx-border-radius: 6px;
+    -fx-padding: 8px;
+    -fx-font-size: 14px;
+}
+
+/* General Button Styling */
+.submit-button,
+.refresh-button,
+.delete-button {
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+    -fx-border-radius: 8px;
+    -fx-padding: 12px 24px;
+    -fx-cursor: hand;
+    -fx-text-fill: white;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.3), 10, 0, 0, 3);
+}
+
+.submit-button {
+    -fx-background-color: #27AE60;
+}
+
+.submit-button:hover {
+    -fx-background-color: #2ECC71;
+}
+
+.refresh-button {
+    -fx-background-color: #2980B9;
+}
+
+.refresh-button:hover {
+    -fx-background-color: #3498DB;
+}
+
+.delete-button {
+    -fx-background-color: linear-gradient(to right, #D32F2F, #C62828);
+}
+
+.delete-button:hover {
+    -fx-background-color: linear-gradient(to right, #B71C1C, #D32F2F);
+}
