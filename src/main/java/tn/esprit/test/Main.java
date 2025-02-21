@@ -1,13 +1,20 @@
 package tn.esprit.test;
 
+<<<<<<< HEAD
 import tn.esprit.models.Station;
 import tn.esprit.models.Utilisateur;
 import tn.esprit.models.tarifs;
 import tn.esprit.services.ServiceStation;
+=======
+import tn.esprit.models.Evenement;
+import java.time.LocalDateTime;
+import java.time.LocalDate;
+>>>>>>> origin/may
 
 public class Main {
 
     public static void main(String[] args) {
+<<<<<<< HEAD
         ServiceStation serviceStation = new ServiceStation();
 
         Utilisateur user = ServiceStation.getUtilisateurById(3);
@@ -30,5 +37,22 @@ public class Main {
         } else {
             System.out.println("Utilisateur non trouvé !");
         }
+=======
+
+        String nom = "Concert Rock";
+        String description = "Un concert de rock exceptionnel";
+        LocalDateTime date = LocalDate.now().atStartOfDay();
+        String lieu = "Stade de France";
+        String statut = "actif";
+        int capacite = 5000;
+        String image = "concert.jpg";
+        int idUser = 1;
+
+
+        Evenement evenement = new Evenement(nom, description, date, lieu, statut, capacite, image, idUser);
+
+
+        System.out.println(evenement);
+>>>>>>> origin/may
     }
 }

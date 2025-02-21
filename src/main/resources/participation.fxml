@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox xmlns:fx="http://javafx.com/fxml" fx:controller="tn.esprit.controllers.ParticipationController" spacing="10">
+    <padding>
+        <Insets top="10" right="10" bottom="10" left="10"/>
+    </padding>
+
+    <!-- Titre -->
+    <Label text="Liste des participations" />
+
+    <!-- TableView affichant les participations -->
+    <TableView fx:id="tvParticipations" prefHeight="200">
+        <columns>
+            <TableColumn fx:id="colIdParticipation" text="ID Participation" prefWidth="100"/>
+            <TableColumn fx:id="colIdUtilisateur" text="ID Utilisateur" prefWidth="100"/>
+            <TableColumn fx:id="colIdEvenement" text="ID Événement" prefWidth="100"/>
+            <TableColumn fx:id="colDateInscription" text="Date Inscription" prefWidth="150"/>
+            <TableColumn fx:id="colMoyenPaiement" text="Moyen de paiement" prefWidth="150"/>
+            <TableColumn fx:id="colMotifAnnulation" text="Motif d'annulation" prefWidth="150"/>
+        </columns>
+    </TableView>
+
+    <!-- Liste des événements -->
+    <Label text="Liste des événements disponibles" />
+    <ListView fx:id="lvEvenements" prefHeight="150"/>
+
+    <!-- Zone pour ajouter une nouvelle participation -->
+    <HBox spacing="10">
+        <TextField fx:id="tfIdUser" promptText="ID Utilisateur" />
+        <TextField fx:id="tfIdEvenement" promptText="ID Événement" />
+        <TextField fx:id="tfMoyenPaiement" promptText="Moyen de paiement" />
+        <Button text="Participer" onAction="#participerEvenement" />
+    </HBox>
+
+    <!-- Zone pour annuler une participation -->
+    <HBox spacing="10">
+        <TextField fx:id="tfIdParticipation" promptText="ID Participation" />
+        <TextField fx:id="tfMotifAnnulation" promptText="Motif d'annulation (code)" />
+        <Button text="Annuler Participation" onAction="#annulerParticipation" />
+    </HBox>
+
+    <!-- Zone d'affichage de messages -->
+    <Label fx:id="lblResult" />
+</VBox>
