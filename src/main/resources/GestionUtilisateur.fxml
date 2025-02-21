@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.text.Text?>
+
+<GridPane alignment="CENTER" hgap="10.0" prefHeight="605.0" prefWidth="583.0" stylesheets="@styles/GestionUtilisateur.css" vgap="10.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tn.esprit.controllers.GestionUtilisateur">
+    <Text styleClass="welcome-text" text="Welcome to BlediSmart" GridPane.columnIndex="3" GridPane.rowIndex="2" />
+    <!-- Champ Nom -->
+    <HBox alignment="CENTER_LEFT" prefHeight="38.0" prefWidth="169.0" spacing="10.0" GridPane.columnIndex="4" GridPane.rowIndex="3">
+        <TextField fx:id="tfNom" promptText="Nom" />
+    </HBox>
+
+    <!-- Champ Prénom -->
+    <HBox alignment="CENTER_LEFT" spacing="10.0" GridPane.columnIndex="4" GridPane.rowIndex="4">
+        <TextField fx:id="tfPrenom" promptText="Prénom" />
+    </HBox>
+
+    <!-- Champ Email -->
+    <HBox alignment="CENTER_LEFT" spacing="10.0" GridPane.columnIndex="4" GridPane.rowIndex="5">
+        <TextField fx:id="tfEmail" promptText="Email" />
+    </HBox>
+
+    <!-- Champ CIN -->
+    <HBox alignment="CENTER_LEFT" spacing="10.0" GridPane.columnIndex="4" GridPane.rowIndex="6">
+        <TextField fx:id="tfCIN" promptText="CIN" />
+    </HBox>
+
+    <!-- Champ Mot de passe -->
+    <HBox alignment="CENTER_LEFT" spacing="10.0" GridPane.columnIndex="4" GridPane.rowIndex="7">
+        <TextField fx:id="tfMDP" promptText="Mot de passe" />
+    </HBox>
+
+    <!-- Bouton S'inscrire -->
+    <HBox alignment="CENTER_LEFT" spacing="10.0" GridPane.columnIndex="4" GridPane.rowIndex="8">
+        <Button fx:id="btnInscrire" onAction="#inscrireUtilisateur" text="S'inscrire" />
+    </HBox>
+
+    <!-- Label Message -->
+    <HBox alignment="CENTER_LEFT" spacing="10.0" GridPane.columnIndex="4" GridPane.rowIndex="9">
+        <Button fx:id="btnUpdate" onAction="#updateUtilisateur" text="Mettre à jour" />
+    </HBox>
+
+    <!-- Bouton Afficher utilisateurs -->
+    <HBox alignment="CENTER_LEFT" spacing="10.0" GridPane.columnIndex="4" GridPane.rowIndex="10" />
+
+    <!-- Conteneur des cartes utilisateurs -->
+    <GridPane fx:id="usersCardContainer" hgap="10.0" vgap="10.0" GridPane.columnIndex="3" GridPane.columnSpan="2" GridPane.rowIndex="14" />
+
+    <!-- Bouton Mettre à jour utilisateur -->
+    <HBox alignment="CENTER_LEFT" spacing="10.0" GridPane.columnIndex="4" GridPane.rowIndex="15" />
+    <Button fx:id="btnAfficher" onAction="#afficherUtilisateurs" text="Afficher utilisateurs" GridPane.columnIndex="3" GridPane.rowIndex="12" />
+     <Text text="Mot de passe :" GridPane.columnIndex="3" GridPane.rowIndex="7" />
+     <Text text="CIN :" GridPane.columnIndex="3" GridPane.rowIndex="6" />
+     <Text text="Email :" GridPane.columnIndex="3" GridPane.rowIndex="5" />
+     <Text text="Prénom :" GridPane.columnIndex="3" GridPane.rowIndex="4" />
+     <Text text="Nom :" GridPane.columnIndex="3" GridPane.rowIndex="3" />
+   <ImageView fitHeight="70.0" fitWidth="99.0" pickOnBounds="true" preserveRatio="true" GridPane.rowIndex="1" styleClass="logo" />
+
+
+
+</GridPane>

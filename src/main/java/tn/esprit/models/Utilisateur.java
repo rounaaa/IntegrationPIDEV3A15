@@ -2,7 +2,7 @@ package tn.esprit.models;
 
 import org.mindrot.jbcrypt.BCrypt;
 
-public abstract class Utilisateur {
+public class Utilisateur {
     private int id_user;
     private String nom;
     private String prenom;

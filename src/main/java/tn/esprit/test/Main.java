@@ -8,12 +8,18 @@ import tn.esprit.models.Utilisateur;
 public class Main {
     public static void main(String[] args) {
         ServiceUtilisateur service = new ServiceUtilisateur();
-
+        // Affichage de tous les utilisateurs
+        System.out.println("\nListe des utilisateurs après ajout :");
+        for (Utilisateur utilisateur : service.getAll()) {
+            System.out.println(utilisateur);
+        }
+          /*
         // Test d'ajout d'un Admin :
-        Admin admin = new Admin("John", "Doe", "john.doe@example.com", 123456, "admin123");
+     Admin admin = new Admin("John", "Doe", "john.doe@example.com", 12345612, "admin123");
         admin.setRole("ADMIN");
         service.add(admin);
         System.out.println("Admin ajouté : " + admin);
+
 
         // Test d'ajout d'un Citoyen :
         Citoyen citoyen = new Citoyen("Jane", "Doe", "jane.doe@example.com", 654321, "citoyen123");
@@ -26,7 +32,6 @@ public class Main {
         for (Utilisateur utilisateur : service.getAll()) {
             System.out.println(utilisateur);
         }
-
    // Test de la mise à jour d'un Admin :
         admin.setEmail("john.updated@example.com"); // Mise à jour de l'email
         service.update(admin);
@@ -41,13 +46,12 @@ public class Main {
         for (Utilisateur utilisateur : service.getAll()) {
             System.out.println(utilisateur);
         }
-
-        // Test de la suppression d'un Admin :
-        service.delete(admin.getId_user());
+ // Test de la suppression d'un Admin :
+        service.delete(admin);  // Utilisation de la méthode delete avec l'objet Admin
         System.out.println("Admin supprimé : " + admin);
 
         // Test de la suppression d'un Citoyen :
-        service.delete(citoyen.getId_user());
+        service.delete(citoyen);  // Utilisation de la méthode delete avec l'objet Citoyen
         System.out.println("Citoyen supprimé : " + citoyen);
 
         // Affichage de tous les utilisateurs
@@ -56,6 +60,6 @@ public class Main {
             System.out.println(utilisateur);
         }
 
-
+        */
     }
 }
