@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane xmlns="http://javafx.com/javafx/8"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="controllers.ListViewConteneurController">
+
+    <ListView fx:id="listViewConteneurs" layoutX="20" layoutY="20" prefWidth="300" prefHeight="200"/>
+    <Button text="Supprimer" fx:id="btnSupprimer" layoutX="340" layoutY="20" onAction="#supprimerConteneur"/>
+
+
+</AnchorPane>

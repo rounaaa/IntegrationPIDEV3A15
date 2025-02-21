@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane xmlns="http://javafx.com/javafx/8"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="controllers.GestionConteneur">
+
+    <Label text="Localisation :" layoutX="20" layoutY="20"/>
+    <TextField fx:id="tfLocalisation" layoutX="150" layoutY="20"/>
+
+    <Label text="Capacité :" layoutX="20" layoutY="60"/>
+    <TextField fx:id="tfCapacite" layoutX="150" layoutY="60"/>
+
+    <Label text="État :" layoutX="20" layoutY="100"/>
+    <ComboBox fx:id="cbEtat" layoutX="150" layoutY="100"/>
+
+    <Label text="Avec capteur :" layoutX="20" layoutY="140"/>
+    <CheckBox fx:id="chkAvecCapteur" layoutX="150" layoutY="140"/>
+
+    <Label text="Niveau de remplissage :" layoutX="20" layoutY="180"/>
+    <TextField fx:id="tfNivRemplissage" layoutX="150" layoutY="180"/>
+
+    <Button text="Ajouter" fx:id="btnAjouter" layoutX="150" layoutY="220" onAction="#ajouterConteneur"/>
+
+    <Label fx:id="lbConteneurs" layoutX="20" layoutY="260"/>
+</AnchorPane>
